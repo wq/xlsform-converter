@@ -7,6 +7,7 @@
   <body>
     <h1>[[form.title]]</h1>
     <form>
+      <!-- action, method, enctype, csrf token, ... -->
       [[#fields]]
       [[#html5_type]]
       [[>fields/input]]
@@ -17,9 +18,9 @@
       [[#type_is_text]]
       [[>fields/textarea]]
       [[/type_is_text]]
-      [[#type_is_unknown]]
-      [[>fields/textarea]]
-      [[/type_is_unknown]]
+      [[#type_is_geo]]
+      [[>fields/geo]]
+      [[/type_is_geo]]
       [[/fields]]
       <div>
         <button type="submit">Submit</button>

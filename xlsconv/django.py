@@ -1,29 +1,29 @@
-from pyxform.xls2json import parse_file_to_json
+from .parser import parse_xls
 from .renderer import render
 from pkg_resources import resource_filename
 
 default_template = resource_filename('xlsconv', 'templates/models.py')
 
-
-GEO_TYPES = {'geopoint', 'geotrace', 'geoshape'}
-FILE_TYPES = {'photo', 'video', 'audio', 'file'}
-
 DJANGO_TYPES = {
-    'integer': 'IntegerField',
-    'text': 'TextField',
-    'dateTime': 'DateTimeField',
+    # Map XForm field types to Django field types
+    'barcode': False,
+    'binary': 'FileField',
     'date': 'DateField',
+    'dateTime': 'DateTimeField',
+    'decimal': 'FloatField',
+    'geopoint': 'PointField',
+    'geoshape': 'PolygonField',
+    'geotrace': 'LineStringField',
+    'int': 'IntegerField',
+    'select': False,
+    'select1': False,
+    'string': 'TextField',
     'time': 'TimeField',
 
-    'photo': 'ImageField',
-    'video': 'FileField',
-    'audio': 'FileField',
-    'file': 'FileField',
-
-    'geopoint': 'PointField',
-    'geotrace': 'LineField',
-    'geoshape': 'PolygonField',
+    # Binary subtypes
+    'image': 'ImageField',
 }
+IMAGE_SUBTYPES = ('image', 'photo', 'picture')
 
 
 def django_context(xform_json):
@@ -47,21 +47,27 @@ def django_context(xform_json):
 
     # Django field types
     for field in context['fields']:
+        if 'type_info' not in field or 'note' in field['type']:
+            continue
+        qtype = field['type_info']['bind']['type']
+        if qtype == 'binary':
+            for qt in IMAGE_SUBTYPES:
+                if qt in field['type']:
+                    qtype = 'image'
+                    break
+
+        field['type_is_%s' % qtype] = True
+        field['subtype_is_%s' % field['type']] = True
         field['field_name'] = field['name'].lower().replace('-', '_')
-        field['type_is_%s' % field['type']] = True
-        field['django_type'] = DJANGO_TYPES.get(
-            field['type'], DJANGO_TYPES['text']
-        )
-        if field['type'] in FILE_TYPES:
-            field['type_is_file'] = True
-        if field['type'] in GEO_TYPES:
+        field['django_type'] = DJANGO_TYPES[qtype]
+        if qtype.startswith('geo'):
             context['form']['has_geo'] = True
             field['type_is_geo'] = True
     return context
 
 
-def xls2django(filename, template_path=default_template):
-    xform_json = parse_file_to_json(filename)
+def xls2django(file_or_name, template_path=default_template):
+    xform_json = parse_xls(file_or_name)
     context = django_context(xform_json)
     return render(context, template_path)
 
