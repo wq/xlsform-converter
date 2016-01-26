@@ -1,0 +1,13 @@
+language: python
+sudo: false
+python:
+ - "2.7"
+ - "3.4"
+env:
+ - LINT=
+ - LINT=1
+install:
+ - pip install flake8
+ - pip install https://github.com/sheppard/pyxform/archive/py3.zip
+script:
+ - ./runtests.sh
