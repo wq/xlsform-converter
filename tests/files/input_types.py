@@ -1,7 +1,7 @@
 from django.contrib.gis.db import models
 
 
-class Survey(models.Model):
+class InputTypes(models.Model):
     int_field = models.IntegerField(
         null=True,
         blank=True,
@@ -58,19 +58,19 @@ class Survey(models.Model):
         help_text="Enter a date and a time.",
     )
     image_field = models.ImageField(
-        upload_to="surveys",
+        upload_to="inputtypes",
         verbose_name="Image field",
         help_text="Add an image.",
     )
     audio_field = models.FileField(
-        upload_to="surveys",
+        upload_to="inputtypes",
         null=True,
         blank=True,
         verbose_name="Audio field",
         help_text="Add an audio file.",
     )
     video_field = models.FileField(
-        upload_to="surveys",
+        upload_to="inputtypes",
         null=True,
         blank=True,
         verbose_name="Video field",
@@ -78,5 +78,5 @@ class Survey(models.Model):
     )
 
     class Meta:
-        verbose_name = "survey"
-        verbose_name_plural = "surveys"
+        verbose_name = "input_types"
+        verbose_name_plural = "inputtypes"

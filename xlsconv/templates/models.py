@@ -10,7 +10,11 @@ class {{form.class_name}}(models.Model):{{#fields}}{{#django_type}}
     {{field_name}} = models.{{django_type}}({{#type_is_binary}}
         upload_to="{{form.urlpath}}",{{/type_is_binary}}{{#type_is_image}}
         upload_to="{{form.urlpath}}",{{/type_is_image}}{{#type_is_geo}}
-        srid=4326,{{/type_is_geo}}{{^bind.required}}
+        srid=4326,{{/type_is_geo}}{{#has_choices}}
+        choices=({{#choices}}
+            ("{{name}}", "{{label}}"),{{/choices}}
+        ),{{/has_choices}}{{#max_len}}
+        max_length={{max_len}},{{/max_len}}{{^bind.required}}
         null=True,
         blank=True,{{/bind.required}}{{#label}}
         verbose_name="{{label}}",{{/label}}{{#hint}}

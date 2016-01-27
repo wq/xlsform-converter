@@ -37,6 +37,7 @@ def html_context(xform_json):
 
     # HTML5 field types
     for field in context['fields']:
+        field['field_name'] = field['name']
         if 'type_info' not in field:
             continue
         qtype = field['type_info']['bind']['type']

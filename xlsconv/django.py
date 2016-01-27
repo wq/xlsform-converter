@@ -15,8 +15,8 @@ DJANGO_TYPES = {
     'geoshape': 'PolygonField',
     'geotrace': 'LineStringField',
     'int': 'IntegerField',
-    'select': False,
-    'select1': False,
+    'select': 'CharField',
+    'select1': 'CharField',
     'string': 'TextField',
     'time': 'TimeField',
 
@@ -55,6 +55,14 @@ def django_context(xform_json):
                 if qt in field['type']:
                     qtype = 'image'
                     break
+
+        if 'choices' in field:
+            field['has_choices'] = True
+            max_len = 0
+            for choice in field['choices']:
+                if len(choice['name']) > max_len:
+                    max_len = len(choice['name'])
+            field['max_len'] = max_len
 
         field['type_is_%s' % qtype] = True
         field['subtype_is_%s' % field['type']] = True

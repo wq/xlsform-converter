@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>select</title>
+  </head>
+  <body>
+    <h1>select</h1>
+    <form>
+      <!-- action, method, enctype, csrf token, ... -->
+      <div>
+        <label for='select-color'>Pick a color</label>
+        <select id='select-color' data-xform-type='select one' name='color'>
+          <option value='red'{{#color_red}} selected{{/color_red}}>Red</option>
+          <option value='green'{{#color_green}} selected{{/color_green}}>Green</option>
+          <option value='blue'{{#color_blue}} selected{{/color_blue}}>Blue</option>
+        </select>
+      </div>
+      <div>
+        <label for='select-tags'>Pick some tags</label>
+        <select id='select-tags' data-xform-type='select all that apply' name='tags' multiple>
+          <option value='cool'{{#tags_cool}} selected{{/tags_cool}}>Cool</option>
+          <option value='active'{{#tags_active}} selected{{/tags_active}}>Active</option>
+          <option value='recent'{{#tags_recent}} selected{{/tags_recent}}>Recent</option>
+        </select>
+      </div>
+      <div>
+        <button type="submit">Submit</button>
+      </div>
+    </form>
+  </body>
+</html>

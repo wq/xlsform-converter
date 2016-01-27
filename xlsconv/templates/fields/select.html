@@ -1,0 +1,12 @@
+{{=[[ ]]=}}
+<div>
+  <label for='[[form.name]]-[[name]]'>[[label]]</label>
+  <select id='[[form.name]]-[[name]]' data-xform-type='[[type]]' name='[[name]]'[[#bind.required]] required[[/bind.required]][[#type_is_select]] multiple[[/type_is_select]]>
+    [[#choices]]
+    <option value='[[name]]'{{#[[field_name]]_[[name]]}} selected{{/[[field_name]]_[[name]]}}>[[label]]</option>
+    [[/choices]]
+  </select>
+  [[#hint]]
+  <p class="hint">[[hint]]</p>
+  [[/hint]]
+</div>
