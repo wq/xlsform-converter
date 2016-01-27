@@ -9,7 +9,7 @@ HTML5_INPUT_TYPES = {
     'barcode': False,
     'binary': 'file',
     'date': 'date',
-    'dateTime': 'datetime',
+    'dateTime': 'datetime-local',
     'decimal': 'number',
     'geopoint': False,
     'geoshape': False,
