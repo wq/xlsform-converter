@@ -2,7 +2,7 @@ from .parser import parse_xls
 from .renderer import render
 from pkg_resources import resource_filename
 
-default_template = resource_filename('xlsconv', 'templates/models.py')
+default_template = resource_filename('xlsconv', 'templates/models.py-tpl')
 
 DJANGO_TYPES = {
     # Map XForm field types to Django field types

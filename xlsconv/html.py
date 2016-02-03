@@ -34,6 +34,10 @@ def html_context(xform_json):
         'form': xform_json,
         'fields': xform_json['children'],
     }
+    urlpath = context['form']['name'].replace('_', '')
+    if not urlpath.endswith('s'):
+        urlpath += 's'
+    context['form']['urlpath'] = urlpath
 
     # HTML5 field types
     for field in context['fields']:

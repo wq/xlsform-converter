@@ -5,8 +5,8 @@
   </head>
   <body>
     <h1>input_types</h1>
-    <form>
-      <!-- action, method, enctype, csrf token, ... -->
+    <form action="/inputtypes/" method="post">
+      <!-- enctype, csrf token, ... -->
       <div>
         <label for='input_types-int_field'>Integer field</label>
         <input id='input_types-int_field' type='number' data-xform-type='integer' name='int_field' value="{{int_field}}">

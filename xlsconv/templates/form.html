@@ -6,8 +6,8 @@
   </head>
   <body>
     <h1>[[form.title]]</h1>
-    <form>
-      <!-- action, method, enctype, csrf token, ... -->
+    <form action="/[[form.urlpath]]/" method="post">
+      <!-- enctype, csrf token, ... -->
       [[#fields]]
       [[#html5_type]]
       [[>fields/input]]
