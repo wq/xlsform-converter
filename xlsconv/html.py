@@ -55,6 +55,10 @@ def html_context(xform_json):
         field['subtype_is_%s' % field['type']] = True
         if qtype.startswith('geo'):
             field['type_is_geo'] = True
+        if 'choices' in field:
+            for num in range(1, 21):
+                if len(field['choices']) > num:
+                    field['more_than_%s_choices' % num] = True
 
     return context
 

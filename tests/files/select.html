@@ -8,11 +8,30 @@
     <form action="/selects/" method="post">
       <!-- enctype, csrf token, ... -->
       <div>
-        <label for='select-color'>Pick a color</label>
-        <select id='select-color' data-xform-type='select one' name='color'>
-          <option value='red'{{#color_red}} selected{{/color_red}}>Red</option>
-          <option value='green'{{#color_green}} selected{{/color_green}}>Green</option>
-          <option value='blue'{{#color_blue}} selected{{/color_blue}}>Blue</option>
+        <fieldset data-xform-type='select one'>
+          <legend>Pick a color</legend>
+          <input type='radio' id='select-color-red' name='color' value='red'{{#color_red}} checked{{/color_red}}>
+          <label for='select-color-red'>Red</label>
+          <input type='radio' id='select-color-green' name='color' value='green'{{#color_green}} checked{{/color_green}}>
+          <label for='select-color-green'>Green</label>
+          <input type='radio' id='select-color-blue' name='color' value='blue'{{#color_blue}} checked{{/color_blue}}>
+          <label for='select-color-blue'>Blue</label>
+        </fieldset>
+      </div>
+      <div>
+        <label for='select-number'>Pick a number</label>
+        <select id='select-number' data-xform-type='select one' name='number'>
+          <option value='1'{{#number_1}} selected{{/number_1}}>One</option>
+          <option value='2'{{#number_2}} selected{{/number_2}}>Two</option>
+          <option value='3'{{#number_3}} selected{{/number_3}}>Three</option>
+          <option value='4'{{#number_4}} selected{{/number_4}}>Four</option>
+          <option value='5'{{#number_5}} selected{{/number_5}}>Five</option>
+          <option value='6'{{#number_6}} selected{{/number_6}}>Six</option>
+          <option value='7'{{#number_7}} selected{{/number_7}}>Seven</option>
+          <option value='8'{{#number_8}} selected{{/number_8}}>Eight</option>
+          <option value='9'{{#number_9}} selected{{/number_9}}>Nine</option>
+          <option value='10'{{#number_10}} selected{{/number_10}}>Ten</option>
+          <option value='11'{{#number_11}} selected{{/number_11}}>Eleven</option>
         </select>
       </div>
       <div>

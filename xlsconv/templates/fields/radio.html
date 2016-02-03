@@ -1,0 +1,13 @@
+{{=[[ ]]=}}
+<div>
+  <fieldset data-xform-type='[[type]]'>
+    <legend>[[label]]</legend>
+    [[#choices]]
+    <input type='radio' id='[[form.name]]-[[field_name]]-[[name]]' name='[[field_name]]' value='[[name]]'{{#[[field_name]]_[[name]]}} checked{{/[[field_name]]_[[name]]}}>
+    <label for='[[form.name]]-[[field_name]]-[[name]]'>[[label]]</label>
+    [[/choices]]
+  </fieldset>
+  [[#hint]]
+  <p class='hint'>[[hint]]</p>
+  [[/hint]]
+</div>

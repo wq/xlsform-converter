@@ -13,6 +13,25 @@ class Select(models.Model):
         blank=True,
         verbose_name="Pick a color",
     )
+    number = models.CharField(
+        choices=(
+            ("1", "One"),
+            ("2", "Two"),
+            ("3", "Three"),
+            ("4", "Four"),
+            ("5", "Five"),
+            ("6", "Six"),
+            ("7", "Seven"),
+            ("8", "Eight"),
+            ("9", "Nine"),
+            ("10", "Ten"),
+            ("11", "Eleven"),
+        ),
+        max_length=2,
+        null=True,
+        blank=True,
+        verbose_name="Pick a number",
+    )
     tags = models.CharField(
         choices=(
             ("cool", "Cool"),
