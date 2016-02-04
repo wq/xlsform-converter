@@ -20,6 +20,13 @@ class InputTypes(models.Model):
         verbose_name="Text field",
         help_text="Enter some text.",
     )
+    char_field = models.CharField(
+        max_length=5,
+        null=True,
+        blank=True,
+        verbose_name="Char field",
+        help_text="Enter some text.",
+    )
     point_field = models.PointField(
         srid=4326,
         verbose_name="Point field",

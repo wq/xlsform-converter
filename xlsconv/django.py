@@ -69,6 +69,8 @@ def django_context(xform_json):
         field['field_name'] = field['name'].lower().replace('-', '_')
         if 'wq:ForeignKey' in field:
             field['django_type'] = "ForeignKey"
+        elif 'wq:length' in field and qtype == "string":
+            field['django_type'] = "CharField"
         else:
             field['django_type'] = DJANGO_TYPES[qtype]
         if qtype.startswith('geo'):

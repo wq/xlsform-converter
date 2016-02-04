@@ -3,7 +3,7 @@ from pyxform.question_type_dictionary import QUESTION_TYPE_DICT as QTYPES
 
 GROUP_TYPES = ['group', 'repeat']
 
-WQ_EXTENSIONS = ["ForeignKey"]
+WQ_EXTENSIONS = ["ForeignKey", "length"]
 
 
 def parse_xls(file_or_name):
