@@ -43,6 +43,14 @@
         </select>
       </div>
       <div>
+        <label for='select-site'>Pick a Site ID</label>
+        <select id='select-site' data-xform-type='integer' name='site' required>
+          {{#site_list}}
+          <option value='{{id}}'{{#selected}} selected{{/selected}}>{{label}}</option>
+          {{/site_list}}
+        </select>
+      </div>
+      <div>
         <button type="submit">Submit</button>
       </div>
     </form>

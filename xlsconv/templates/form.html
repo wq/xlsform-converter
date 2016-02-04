@@ -9,6 +9,10 @@
     <form action="/[[form.urlpath]]/" method="post">
       <!-- enctype, csrf token, ... -->
       [[#fields]]
+      [[#wq:ForeignKey]]
+      [[>fields/foreignkey]]
+      [[/wq:ForeignKey]]
+      [[^wq:ForeignKey]]
       [[#html5_type]]
       [[>fields/input]]
       [[/html5_type]]
@@ -32,6 +36,7 @@
       [[#type_is_geo]]
       [[>fields/geo]]
       [[/type_is_geo]]
+      [[/wq:ForeignKey]]
       [[/fields]]
       <div>
         <button type="submit">Submit</button>

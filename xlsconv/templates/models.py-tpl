@@ -7,7 +7,8 @@ from django.db import models
 
 
 class {{form.class_name}}(models.Model):{{#fields}}{{#django_type}}
-    {{field_name}} = models.{{django_type}}({{#type_is_binary}}
+    {{field_name}} = models.{{django_type}}({{#wq:ForeignKey}}
+        {{{wq:ForeignKey}}},{{/wq:ForeignKey}}{{#type_is_binary}}
         upload_to="{{form.urlpath}}",{{/type_is_binary}}{{#type_is_image}}
         upload_to="{{form.urlpath}}",{{/type_is_image}}{{#type_is_geo}}
         srid=4326,{{/type_is_geo}}{{#has_choices}}

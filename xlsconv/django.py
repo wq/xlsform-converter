@@ -67,7 +67,10 @@ def django_context(xform_json):
         field['type_is_%s' % qtype] = True
         field['subtype_is_%s' % field['type']] = True
         field['field_name'] = field['name'].lower().replace('-', '_')
-        field['django_type'] = DJANGO_TYPES[qtype]
+        if 'wq:ForeignKey' in field:
+            field['django_type'] = "ForeignKey"
+        else:
+            field['django_type'] = DJANGO_TYPES[qtype]
         if qtype.startswith('geo'):
             context['form']['has_geo'] = True
             field['type_is_geo'] = True

@@ -1,8 +1,9 @@
 survey,,,
-,type,name,label
-,select_one colors,color,Pick a color
-,select_one numbers,number,Pick a number
-,select_multiple tags,tags,Pick some tags
+,type,name,label,constraint,required
+,select_one colors,color,Pick a color,,
+,select_one numbers,number,Pick a number,,
+,select_multiple tags,tags,Pick some tags,,
+,integer,site,Pick a Site ID,wq:ForeignKey("other_app.Site"),yes
 choices,,,
 ,list name,name,label
 ,colors,red,Red

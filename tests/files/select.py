@@ -43,6 +43,10 @@ class Select(models.Model):
         blank=True,
         verbose_name="Pick some tags",
     )
+    site = models.ForeignKey(
+        "other_app.Site",
+        verbose_name="Pick a Site ID",
+    )
 
     class Meta:
         verbose_name = "select"

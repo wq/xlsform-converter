@@ -3,6 +3,8 @@ from pyxform.question_type_dictionary import QUESTION_TYPE_DICT as QTYPES
 
 GROUP_TYPES = ['group', 'repeat']
 
+WQ_EXTENSIONS = ["ForeignKey"]
+
 
 def parse_xls(file_or_name):
     if isinstance(file_or_name, str):
@@ -19,4 +21,10 @@ def parse_xls(file_or_name):
             raise Exception("Unknown field type: %s" % field['type'])
         else:
             field['type_info'] = QTYPES[field['type']]
+            cons = field.get('bind', {}).get('constraint', '')
+            if cons.startswith('wq:'):
+                cons = cons[3:]
+                for ext in WQ_EXTENSIONS:
+                    if cons.startswith(ext + "(") and cons.endswith(")"):
+                        field['wq:%s' % ext] = cons[len(ext) + 1:-1]
     return xform_json
