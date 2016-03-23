@@ -6,23 +6,19 @@ from django.db import models
 {{/form.has_geo}}
 
 
-class {{form.class_name}}(models.Model):{{#fields}}{{#django_type}}
-    {{field_name}} = models.{{django_type}}({{#wq:ForeignKey}}
-        {{{wq:ForeignKey}}},{{/wq:ForeignKey}}{{#wq:length}}
-        max_length={{{wq:length}}},{{/wq:length}}{{#type_is_binary}}
-        upload_to="{{form.urlpath}}",{{/type_is_binary}}{{#type_is_image}}
-        upload_to="{{form.urlpath}}",{{/type_is_image}}{{#type_is_geo}}
-        srid=4326,{{/type_is_geo}}{{#has_choices}}
-        choices=({{#choices}}
-            ("{{name}}", "{{label}}"),{{/choices}}
-        ),{{/has_choices}}{{#max_len}}
-        max_length={{max_len}},{{/max_len}}{{^bind.required}}
-        null=True,
-        blank=True,{{/bind.required}}{{#label}}
-        verbose_name="{{label}}",{{/label}}{{#hint}}
-        help_text="{{hint}}",{{/hint}}
-    ){{/django_type}}{{/fields}}
-
+class {{form.class_name}}(models.Model):
+{{#fields}}{{#django_type}}{{>fields/model_field}}{{/django_type}}{{/fields}}
     class Meta:
         verbose_name = "{{form.verbose_name}}"
-        verbose_name_plural = "{{form.verbose_name_plural}}"
+        verbose_name_plural = "{{form.verbose_name_plural}}"{{#fields}}{{#wq:nested}}
+
+
+class {{class_name}}(models.Model):
+    {{form.field_name}} = models.ForeignKey(
+        {{form.class_name}},
+        related_name="{{verbose_name_plural}}",
+    )
+{{#children}}{{#django_type}}{{>fields/model_field}}{{/django_type}}{{/children}}
+    class Meta:
+        verbose_name = "{{verbose_name}}"
+        verbose_name_plural = "{{verbose_name_plural}}"{{/wq:nested}}{{/fields}}

@@ -1,10 +1,10 @@
 {{=[[ ]]=}}
 <div>
-  <label for='[[form.name]]-[[name]]'>[[label]]</label>
-  <select id='[[form.name]]-[[name]]' data-xform-type='[[type]]' name='[[name]]'[[#bind.required]] required[[/bind.required]]>
-    {{#[[name]]_list}}
+  <label for='[[form.name]]-[[field_id]]'>[[label]]</label>
+  <select id='[[form.name]]-[[field_id]]' data-xform-type='[[type]]' name='[[field_formname]]'[[#bind.required]] required[[/bind.required]]>
+    {{#[[real_name]]_list}}
     <option value='{{id}}'{{#selected}} selected{{/selected}}>{{label}}</option>
-    {{/[[name]]_list}}
+    {{/[[real_name]]_list}}
   </select>
   [[#hint]]
   <p class="hint">[[hint]]</p>

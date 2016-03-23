@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>repeat</title>
+  </head>
+  <body>
+    <h1>repeat</h1>
+    <form action="/repeats/" method="post">
+      <!-- enctype, csrf token, ... -->
+      <div>
+        <label for='repeat-name'>Name</label>
+        <textarea id='repeat-name' name='name' data-xform-type="text" required>{{name}}</textarea>
+      </div>
+      <h2>Items</h2>
+      {{#items}}
+      <div>
+        <label for='repeat-items-{{@index}}-name'>Item Name</label>
+        <textarea id='repeat-items-{{@index}}-name' name='items[{{@index}}][name]' data-xform-type="text" required>{{name}}</textarea>
+      </div>
+      <div>
+        <label for='repeat-items-{{@index}}-count'>Item Count</label>
+        <input id='repeat-items-{{@index}}-count' type='number' data-xform-type='integer' name='items[{{@index}}][count]' required value="{{count}}">
+      </div>
+      <hr>
+      {{/items}}
+      <div>
+        <button type="submit">Submit</button>
+      </div>
+    </form>
+  </body>
+</html>

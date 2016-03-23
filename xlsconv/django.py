@@ -1,4 +1,4 @@
-from .parser import parse_xls
+from .parser import parse_xls, generate_names
 from .renderer import render
 from pkg_resources import resource_filename
 
@@ -33,49 +33,60 @@ def django_context(xform_json):
     }
 
     # Additional variations on name/title for use in models.py
-    class_name = context['form']['name']
-    class_name = class_name.replace('_', ' ').title().replace(' ', '')
-    plural = class_name.lower()
-    if not plural.endswith('s'):
-        plural += 's'
+    class_name, plural_name = generate_names(context['form']['name'])
     context['form'].update(
         class_name=class_name,
+        field_name=class_name.lower(),
         verbose_name=context['form']['title'].lower(),
-        verbose_name_plural=plural,
-        urlpath=plural,
+        verbose_name_plural=plural_name,
+        urlpath=plural_name,
     )
 
-    # Django field types
-    for field in context['fields']:
-        if 'type_info' not in field or 'note' in field['type']:
-            continue
-        qtype = field['type_info']['bind']['type']
-        if qtype == 'binary':
-            for qt in IMAGE_SUBTYPES:
-                if qt in field['type']:
-                    qtype = 'image'
-                    break
+    def process_fields(fields):
+        # Django field types
+        for field in fields:
+            if field.get('wq:nested', False):
+                process_fields(field['children'])
+                class_name, plural_name = generate_names(
+                    field['name'], from_plural=True
+                )
+                field.update(
+                    class_name=class_name,
+                    verbose_name=class_name.lower(),
+                    verbose_name_plural=plural_name,
+                )
+                context['form']['has_nested'] = True
+                continue
+            if 'type_info' not in field or 'note' in field['type']:
+                continue
+            qtype = field['type_info']['bind']['type']
+            if qtype == 'binary':
+                for qt in IMAGE_SUBTYPES:
+                    if qt in field['type']:
+                        qtype = 'image'
+                        break
 
-        if 'choices' in field:
-            field['has_choices'] = True
-            max_len = 0
-            for choice in field['choices']:
-                if len(choice['name']) > max_len:
-                    max_len = len(choice['name'])
-            field['max_len'] = max_len
+            if 'choices' in field:
+                field['has_choices'] = True
+                max_len = 0
+                for choice in field['choices']:
+                    if len(choice['name']) > max_len:
+                        max_len = len(choice['name'])
+                field['max_len'] = max_len
 
-        field['type_is_%s' % qtype] = True
-        field['subtype_is_%s' % field['type']] = True
-        field['field_name'] = field['name'].lower().replace('-', '_')
-        if 'wq:ForeignKey' in field:
-            field['django_type'] = "ForeignKey"
-        elif 'wq:length' in field and qtype == "string":
-            field['django_type'] = "CharField"
-        else:
-            field['django_type'] = DJANGO_TYPES[qtype]
-        if qtype.startswith('geo'):
-            context['form']['has_geo'] = True
-            field['type_is_geo'] = True
+            field['type_is_%s' % qtype] = True
+            field['subtype_is_%s' % field['type']] = True
+            field['field_name'] = field['name'].lower().replace('-', '_')
+            if 'wq:ForeignKey' in field:
+                field['django_type'] = "ForeignKey"
+            elif 'wq:length' in field and qtype == "string":
+                field['django_type'] = "CharField"
+            else:
+                field['django_type'] = DJANGO_TYPES[qtype]
+            if qtype.startswith('geo'):
+                context['form']['has_geo'] = True
+                field['type_is_geo'] = True
+    process_fields(context['fields'])
     return context
 
 

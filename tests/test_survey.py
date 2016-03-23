@@ -36,3 +36,9 @@ class SurveyTestCase(unittest.TestCase):
 
     def test_select_django(self):
         self.check_django('select', 'csv')
+
+    def test_repeat_html(self):
+        self.check_html('repeat', 'csv')
+
+    def test_repeat_django(self):
+        self.check_django('repeat', 'csv')

@@ -3,7 +3,7 @@ from pyxform.question_type_dictionary import QUESTION_TYPE_DICT as QTYPES
 
 GROUP_TYPES = ['group', 'repeat']
 
-WQ_EXTENSIONS = ["ForeignKey", "length"]
+WQ_EXTENSIONS = ["ForeignKey", "length", "initial"]
 
 
 def parse_xls(file_or_name):
@@ -14,17 +14,48 @@ def parse_xls(file_or_name):
         fileobj = file_or_name
         filename = fileobj.name
     xform_json = parse_file_to_json(filename, file_object=fileobj)
-    for field in xform_json['children']:
-        if field['type'] in GROUP_TYPES:
-            continue
-        if field['type'] not in QTYPES:
-            raise Exception("Unknown field type: %s" % field['type'])
-        else:
-            field['type_info'] = QTYPES[field['type']]
+
+    def process_fields(root):
+        for field in root['children']:
             cons = field.get('bind', {}).get('constraint', '')
             if cons.startswith('wq:'):
                 cons = cons[3:]
                 for ext in WQ_EXTENSIONS:
                     if cons.startswith(ext + "(") and cons.endswith(")"):
-                        field['wq:%s' % ext] = cons[len(ext) + 1:-1]
+                            field['wq:%s' % ext] = cons[len(ext) + 1:-1]
+
+            if field['type'] in GROUP_TYPES:
+                process_fields(field)
+                if not field['name'] == "meta":
+                    field['wq:nested'] = True
+                continue
+            elif field['type'] in QTYPES:
+                field['type_info'] = QTYPES[field['type']]
+            else:
+                raise Exception("Unknown field type: %s" % field['type'])
+    process_fields(xform_json)
     return xform_json
+
+
+def generate_names(field_name, from_plural=False):
+    class_name = field_name.replace('_', ' ').title().replace(' ', '')
+    if from_plural and class_name.endswith('s'):
+        class_name = class_name[:-1]
+
+    plural_name = class_name.lower()
+    if not plural_name.endswith('s'):
+        plural_name += 's'
+
+    return class_name, plural_name
+
+
+def main():
+    import sys
+    import json
+    print(json.dumps(
+        parse_xls(*sys.argv[1:]),
+        indent=4
+    ))
+
+if __name__ == '__main__':
+    main()
