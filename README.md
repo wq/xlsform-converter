@@ -2,7 +2,7 @@
 
 xlsform-converter converts surveys defined via the [XLSForm standard] into [Django models] and HTML5 [Mustache templates].  This makes it possible to re-use the powerful form building tools provided by the [Open Data Kit ecosystem][ecosystem], while leveraging Django's robust support for relational databases like [PostgreSQL].
 
-xlsform-converter is designed to facilitate the rapid development of offline-capable data collection apps via the [wq framework].  The ultimate goal is to provide full compatibility with the form authoring tools provided by [ODK (and Enketo, etc.)][ecosystem].  Note that this is not the same as full XForm compatibility: the client and server components of wq ([wq.app] and [wq.db]) use a simple [REST API] to exchange data and are not compatible with their ODK Analogues (ODK Collect and ODK Aggregate, respectively).
+xlsform-converter is designed to facilitate the rapid development of offline-capable data collection apps via the [wq framework].  The ultimate goal is to provide full compatibility with the form authoring tools provided by [ODK (and Enketo, etc.)][ecosystem].  Note that this is not the same as full XForm compatibility: the client and server components of wq ([wq.app] and [wq.db]) use a JSON-based [REST API] to exchange data and are not directly compatible with their ODK Analogues (ODK Collect and ODK Aggregate, respectively).
 
 [![Latest PyPI Release](https://img.shields.io/pypi/v/xlsconv.svg)](https://pypi.python.org/pypi/xlsconv)
 [![Release Notes](https://img.shields.io/github/release/wq/xlsform-converter.svg)](https://github.com/wq/xlsform-converter/releases)
@@ -32,7 +32,7 @@ xls2html my-odk-survey.xls > templates/survey_form.html
 xls2html my-odk-survey.xls my_templates/form.html > templates/survey_form.html
 ```
 
-If you are using wq, you may be interested in [wq.start], which will use xlsconv internally in version 1.0.
+If you are using wq, you may be interested in [wq.start], which uses xlsconv internally for the `wq addform` and `wq maketemplates` commands.
 
 [XLSForm standard]: http://xlsform.org/
 [Django models]: https://docs.djangoproject.com/en/1.9/topics/db/models/
