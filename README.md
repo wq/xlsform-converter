@@ -4,6 +4,14 @@ xlsform-converter converts surveys defined via the [XLSForm standard] into [Djan
 
 xlsform-converter is designed to facilitate the rapid development of offline-capable data collection apps via the [wq framework].  The ultimate goal is to provide full compatibility with the form authoring tools provided by [ODK (and Enketo, etc.)][ecosystem].  Note that this is not the same as full XForm compatibility: the client and server components of wq ([wq.app] and [wq.db]) use a JSON-based [REST API] to exchange data and are not directly compatible with their ODK Analogues (ODK Collect and ODK Aggregate, respectively).
 
+For the database itself, the key distinction from other XLSForm tools (including some powered by Django) is that xlsform-converter converts the xlsform fields directly into a Django model definition, rather than representing the entire XForm standard within Django.  This means that each row in an XLSForm "survey" tab is mapped to (usually) a single column in a simple relational database table.  Repeat questions are handled by creating a second model with a `ForeignKey` to the parent survey model.
+
+xlsform-converter also supports a couple of additional "constraints" that are not part of the XLSForm standard:
+
+ * `wq:ForeignKey('app.ModelName')`: Create a foreign key to an existing Django model (presumably not defined in the spreadsheet).  This is effectively a more relational version of `select_one_external`.
+ * `wq:initial(3)`: Very similar to `repeat_count`, but only set for new records.
+ * `wq:length(5)`: Text field maximum length (similar to a `string-length` constraint)
+
 [![Latest PyPI Release](https://img.shields.io/pypi/v/xlsconv.svg)](https://pypi.python.org/pypi/xlsconv)
 [![Release Notes](https://img.shields.io/github/release/wq/xlsform-converter.svg)](https://github.com/wq/xlsform-converter/releases)
 [![License](https://img.shields.io/pypi/l/xlsconv.svg)](https://github.com/wq/xlsform-converter/blob/master/LICENSE)
