@@ -23,6 +23,14 @@
       </div>
       <hr>
       {{/items}}
+      <h2>Nested</h2>
+      {{#nested}}
+      <div>
+        <label for='repeat-nested-name'>Name</label>
+        <textarea id='repeat-nested-name' name='nested[name]' data-xform-type="text" required>{{name}}</textarea>
+      </div>
+      <hr>
+      {{/nested}}
       <div>
         <button type="submit">Submit</button>
       </div>

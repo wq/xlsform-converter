@@ -40,30 +40,38 @@ def html_context(xform_json):
     context['form']['urlpath'] = urlpath
 
     # HTML5 field types
-    def process_fields(fields, prefix=None):
+    def process_fields(fields, prefix=None, many=False):
         for field in fields:
             if 'wq:ForeignKey' in field:
                 field['real_name'] = field['name']
                 field['name'] = field['name'] + '_id'
             field['field_name'] = field['name']
             if prefix:
-                field['field_formname'] = '%s[%s][%s]' % (
-                    prefix, "{{@index}}", field['name'],
-                )
-                field['field_id'] = '%s-%s-%s' % (
-                    prefix, "{{@index}}", field['name'],
-                )
+                if many:
+                    formname = "%s[{{@index}}][%s]"
+                    fieldid = "%s-{{@index}}-%s"
+                else:
+                    formname = "%s[%s]"
+                    fieldid = "%s-%s"
+                field['field_formname'] = formname % (prefix, field['name'])
+                field['field_id'] = fieldid % (prefix, field['name'])
             else:
                 field['field_formname'] = field['name']
                 field['field_id'] = field['name']
 
             if field.get('wq:nested', False):
-                class_name, plural_name = generate_names(
-                    field['name'],
-                    from_plural=True
+                many = field.get('wq:many', False)
+                if many:
+                    class_name, plural_name = generate_names(
+                        field['name'],
+                        from_plural=True
+                    )
+                    field['plural_name'] = plural_name
+                else:
+                    field['plural_name'] = field['name']
+                process_fields(
+                    field['children'], field['plural_name'], many=many
                 )
-                field['plural_name'] = plural_name
-                process_fields(field['children'], plural_name)
                 continue
             if 'type_info' not in field:
                 continue

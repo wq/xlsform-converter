@@ -5,3 +5,6 @@ survey,,,
 ,text,name,Item Name,,yes,
 ,integer,count,Item Count,,yes,
 ,end repeat,,,,,
+,begin group,nested,Nested,,yes
+,text,name,Name,,yes
+,end group,,,,

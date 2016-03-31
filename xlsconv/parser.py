@@ -28,6 +28,8 @@ def parse_xls(file_or_name):
                 process_fields(field)
                 if not field['name'] == "meta":
                     field['wq:nested'] = True
+                if field['type'] == 'repeat':
+                    field['wq:many'] = True
                 continue
             elif field['type'] in QTYPES:
                 field['type_info'] = QTYPES[field['type']]
