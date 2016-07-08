@@ -2,7 +2,8 @@ from .parser import parse_xls, generate_names
 from .renderer import render
 from pkg_resources import resource_filename
 
-default_template = resource_filename('xlsconv', 'templates/models.py-tpl')
+TEMPLATE_NAMES = ('admin', 'models', 'rest', 'serializers')
+DEFAULT_TEMPLATE = 'models'
 
 DJANGO_TYPES = {
     # Map XForm field types to Django field types
@@ -90,9 +91,13 @@ def django_context(xform_json):
     return context
 
 
-def xls2django(file_or_name, template_path=default_template):
+def xls2django(file_or_name, template_path=DEFAULT_TEMPLATE):
     xform_json = parse_xls(file_or_name)
     context = django_context(xform_json)
+    if template_path in TEMPLATE_NAMES:
+        template_path = resource_filename(
+            'xlsconv', 'templates/%s.py-tpl' % template_path
+        )
     return render(context, template_path)
 
 

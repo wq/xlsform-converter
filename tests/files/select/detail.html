@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>{{label}}</title>
+    {{>head}}
+  </head>
+  <body>
+    <div data-role="page">
+      <div data-role="header">
+        {{>home}}
+        <h1>{{label}}</h1>
+        {{#page_config.can_change}}
+        <a href="{{rt}}/selects/{{id}}/edit" data-icon="edit" data-transition="flip">
+          Edit
+        </a>
+        {{/page_config.can_change}}
+      </div>
+      <div role="main" class="ui-content">
+          <h1>{{label}}</h1>
+          <table>
+            <tr>
+              <th>Pick a color</th>
+              <td>{{color_label}}</td>
+            </tr>
+            <tr>
+              <th>Pick a number</th>
+              <td>{{number_label}}</td>
+            </tr>
+            <tr>
+              <th>Pick some tags</th>
+              <td>{{tags_label}}</td>
+            </tr>
+            <tr>
+              <th>Pick a Site ID</th>
+              <td>{{site_label}}</td>
+            </tr>
+            <tr>
+              <th></th>
+              <td>{{meta}}</td>
+            </tr>
+          </table>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>{{^id}}Add{{/id}}{{#id}}Edit{{/id}} select</title>
+    {{>head}}
+  </head>
+  <body>
+    <div data-role="page">
+      <div data-role="header">
+        {{>home}}
+        <h1>{{^id}}Add{{/id}}{{#id}}Edit{{/id}} select</h1>
+      </div>
+      <div role="main" class="ui-content">
+        <form action="{{svc}}/selects/{{id}}" method="post" data-ajax="false"
+            data-wq-json="true"
+            {{#outbox_id}}
+              data-wq-outbox-id="{{outbox_id}}"
+              data-wq-outbox-preserve=""
+            {{/outbox_id}}>
+          {{>csrf}}
+          {{#id}}
+          <input type=hidden name="_method" value="PUT">
+          {{/id}}
+          <ul data-role="listview" data-inset="true">
+            <li class="ui-field-contain">
+              <fieldset data-xform-type='select one' data-role='controlgroup' data-type='horizontal'>
+                <legend>Pick a color</legend>
+                {{#color_choices}}
+                <input type='radio' id='select-color-{{name}}' name='color' value='{{name}}'{{#selected}} checked{{/selected}}>
+                <label for='select-color-{{name}}'>{{label}}</label>
+                {{/color_choices}}
+              </fieldset>
+              <p class='error select-color-errors'></p>
+            </li>
+            <li class="ui-field-contain">
+              <label for='select-number'>Pick a number</label>
+              <select id='select-number' data-xform-type='select one' name='number'>
+                <option value="">Select one..</option>
+                {{#number_choices}}
+                <option value="{{name}}"{{#selected}} selected{{/selected}}>
+                  {{label}}
+                </option>
+                {{/number_choices}}
+              </select>
+              <p class='error select-number-errors'></p>
+            </li>
+            <li class="ui-field-contain">
+              <label for='select-tags'>Pick some tags</label>
+              <select id='select-tags' data-xform-type='select all that apply' name='tags' multiple>
+                {{#tags_choices}}
+                <option value="{{name}}"{{#selected}} selected{{/selected}}>
+                  {{label}}
+                </option>
+                {{/tags_choices}}
+              </select>
+              <p class='error select-tags-errors'></p>
+            </li>
+            <li class="ui-field-contain">
+              <label for='select-site_id'>Pick a Site ID</label>
+              <select id='select-site_id' data-xform-type='integer' name='site_id' required>
+                <option value="">Select one..</option>
+                {{#site_list}}
+                <option value="{{id}}"{{#selected}} selected{{/selected}}>
+                  {{label}}
+                </option>
+                {{/site_list}}
+              </select>
+              <p class='error select-site_id-errors'></p>
+            </li>
+            <li>
+              <div class="ui-grid-a">
+                <div class="ui-block-a">
+                  <a href="{{rt}}/selects/{{id}}" data-role="button" data-icon="back" data-direction="reverse">
+                    Back
+                  </a>
+                </div>
+                <div class="ui-block-b">
+                  <button type="submit" data-icon="check" data-theme="b">
+                    Submit
+                  </button>
+                </div>
+              </div>
+              <p class="error select-errors"></p>
+            </li>
+          </ul>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,11 +1,10 @@
 {{=[[ ]]=}}
-<div>
-  <p class='label'>[[label]]</p>
-  <input type='hidden' data-xform-type='[[type]]' name='[[field_formname]]'[[#bind.required]] required[[/bind.required]] value="{{[[name]]}}">
-  <div id='[[form.name]]-[[name]]-map'>
-    <!-- map content -->
-  </div>
+<li>
+  <label for='[[form.name]]-[[field_id]]'>[[label]]</label>
+  <input type='hidden' data-xform-type='[[type]]' name='[[field_formname]]'[[#bind.required]] required[[/bind.required]]>
+  <div class="map edit-map" id='[[form.name]]-{{id}}{{^id}}new{{/id}}-edit-map'></div>
   [[#hint]]
   <p class="hint">[[hint]]</p>
   [[/hint]]
-</div>
+  <p class='error [[form.name]]-[[field_id]]-errors'></p>
+</li>

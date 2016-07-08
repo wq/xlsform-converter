@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>{{^id}}Add{{/id}}{{#id}}Edit{{/id}} input_types</title>
+    {{>head}}
+  </head>
+  <body>
+    <div data-role="page">
+      <div data-role="header">
+        {{>home}}
+        <h1>{{^id}}Add{{/id}}{{#id}}Edit{{/id}} input_types</h1>
+      </div>
+      <div role="main" class="ui-content">
+        <form action="{{svc}}/inputtypes/{{id}}" method="post" data-ajax="false"
+            data-wq-json="true"
+            {{#outbox_id}}
+              data-wq-outbox-id="{{outbox_id}}"
+              data-wq-outbox-preserve="image_field,audio_field,video_field,"
+            {{/outbox_id}}>
+          {{>csrf}}
+          {{#id}}
+          <input type=hidden name="_method" value="PUT">
+          {{/id}}
+          <ul data-role="listview" data-inset="true">
+            <li class="ui-field-contain">
+              <label for='input_types-int_field'>Integer field</label>
+              <input id='input_types-int_field' type='number' data-xform-type='integer' name='int_field' value="{{int_field}}">
+              <p class="hint">Enter an integer number.</p>
+              <p class='error input_types-int_field-errors'></p>
+            </li>
+            <li class="ui-field-contain">
+              <label for='input_types-dec_field'>Decimal field</label>
+              <input id='input_types-dec_field' type='number' data-xform-type='decimal' name='dec_field' step='0.001' value="{{dec_field}}">
+              <p class="hint">Enter a decimal number.</p>
+              <p class='error input_types-dec_field-errors'></p>
+            </li>
+            <li class="ui-field-contain">
+              <label for='input_types-text_field'>Text field</label>
+              <textarea id='input_types-text_field' name='text_field' data-xform-type="text">{{text_field}}</textarea>
+              <p class="hint">Enter some text.</p>
+              <p class='error input_types-text_field-errors'></p>
+            </li>
+            <li class="ui-field-contain">
+              <label for='input_types-char_field'>Char field</label>
+              <input id='input_types-char_field' type='text' data-xform-type='string' name='char_field' value="{{char_field}}">
+              <p class="hint">Enter some text.</p>
+              <p class='error input_types-char_field-errors'></p>
+            </li>
+            <li data-xform-type='note'>
+              <p class="label">This is a note.</p>
+            </li>
+            <li>
+              <label for='input_types-point_field'>Point field</label>
+              <input type='hidden' data-xform-type='geopoint' name='point_field' required>
+              <div class="map edit-map" id='input_types-{{id}}{{^id}}new{{/id}}-edit-map'></div>
+              <p class="hint">Enter a point.</p>
+              <p class='error input_types-point_field-errors'></p>
+            </li>
+            <li>
+              <label for='input_types-linestring_field'>Line string field</label>
+              <input type='hidden' data-xform-type='geotrace' name='linestring_field'>
+              <div class="map edit-map" id='input_types-{{id}}{{^id}}new{{/id}}-edit-map'></div>
+              <p class="hint">Enter a line.</p>
+              <p class='error input_types-linestring_field-errors'></p>
+            </li>
+            <li>
+              <label for='input_types-polygon_field'>Polygon field</label>
+              <input type='hidden' data-xform-type='geoshape' name='polygon_field'>
+              <div class="map edit-map" id='input_types-{{id}}{{^id}}new{{/id}}-edit-map'></div>
+              <p class="hint">Enter a polygon.</p>
+              <p class='error input_types-polygon_field-errors'></p>
+            </li>
+            <li class="ui-field-contain">
+              <label for='input_types-date_field'>Date field</label>
+              <input id='input_types-date_field' type='date' data-xform-type='date' name='date_field' value="{{date_field}}">
+              <p class="hint">Enter a date.</p>
+              <p class='error input_types-date_field-errors'></p>
+            </li>
+            <li class="ui-field-contain">
+              <label for='input_types-time_field'>Time field</label>
+              <input id='input_types-time_field' type='time' data-xform-type='time' name='time_field' value="{{time_field}}">
+              <p class="hint">Enter a time.</p>
+              <p class='error input_types-time_field-errors'></p>
+            </li>
+            <li class="ui-field-contain">
+              <label for='input_types-datetime_field'>Date+time field</label>
+              <input id='input_types-datetime_field' type='datetime-local' data-xform-type='dateTime' name='datetime_field' value="{{datetime_field}}">
+              <p class="hint">Enter a date and a time.</p>
+              <p class='error input_types-datetime_field-errors'></p>
+            </li>
+            {{^image_field.name}}
+            <li class="ui-field-contain">
+              <img src="{{rt}}/images/empty.png"
+                   id="input_types-image_field-preview">
+              <label for="input_types-image_field">Photo</label>
+              {{#native}}
+              <input type="hidden" name="image_field" id="input_types-image_field"
+                     data-wq-type="file" data-wq-preview="input_types-image_field-preview">
+              <div>
+                <button type="button" data-inline="true" data-icon="camera"
+                   data-wq-action="take" data-wq-input="input_types-image_field">
+                   Camera
+                </button>
+                <button type="button" data-inline="true" data-icon="grid"
+                   data-wq-action="pick" data-wq-input="input_types-image_field">
+                   Gallery
+                </button>
+              </div>
+              {{/native}}
+              {{^native}}
+              <input type="file" name="image_field" id="input_types-image_field" accept='image/*'
+                     data-wq-preview="input_types-image_field-preview">
+              {{/native}}
+              <p class="error input_types-image_field-errors"></p>
+            </li>
+            {{/image_field.name}}
+            {{#image_field.name}}
+            {{#image_field}}
+            <li class="ui-field-contain">
+              <img src="{{image_url}}">
+              <label for="input_types-image_field">Photo</label>
+              <input type="text" id="input_types-image_field" disabled
+                  value="{{name}} ({{type}}, {{body.size}} bytes)">
+              <p class="error input_types-image_field-errors"></p>
+            </li>
+            {{/image_field}}
+            {{/image_field.name}}
+            {{^audio_field.name}}
+            <li class="ui-field-contain">
+              <img src="{{rt}}/images/empty.png"
+                   id="input_types-audio_field-preview">
+              <label for="input_types-audio_field">Photo</label>
+              {{#native}}
+              <input type="hidden" name="audio_field" id="input_types-audio_field"
+                     data-wq-type="file" data-wq-preview="input_types-audio_field-preview">
+              <div>
+                <button type="button" data-inline="true" data-icon="camera"
+                   data-wq-action="take" data-wq-input="input_types-audio_field">
+                   Camera
+                </button>
+                <button type="button" data-inline="true" data-icon="grid"
+                   data-wq-action="pick" data-wq-input="input_types-audio_field">
+                   Gallery
+                </button>
+              </div>
+              {{/native}}
+              {{^native}}
+              <input type="file" name="audio_field" id="input_types-audio_field" accept='audio/*'
+                     data-wq-preview="input_types-audio_field-preview">
+              {{/native}}
+              <p class="error input_types-audio_field-errors"></p>
+            </li>
+            {{/audio_field.name}}
+            {{#audio_field.name}}
+            {{#audio_field}}
+            <li class="ui-field-contain">
+              <img src="{{image_url}}">
+              <label for="input_types-audio_field">Photo</label>
+              <input type="text" id="input_types-audio_field" disabled
+                  value="{{name}} ({{type}}, {{body.size}} bytes)">
+              <p class="error input_types-audio_field-errors"></p>
+            </li>
+            {{/audio_field}}
+            {{/audio_field.name}}
+            {{^video_field.name}}
+            <li class="ui-field-contain">
+              <img src="{{rt}}/images/empty.png"
+                   id="input_types-video_field-preview">
+              <label for="input_types-video_field">Photo</label>
+              {{#native}}
+              <input type="hidden" name="video_field" id="input_types-video_field"
+                     data-wq-type="file" data-wq-preview="input_types-video_field-preview">
+              <div>
+                <button type="button" data-inline="true" data-icon="camera"
+                   data-wq-action="take" data-wq-input="input_types-video_field">
+                   Camera
+                </button>
+                <button type="button" data-inline="true" data-icon="grid"
+                   data-wq-action="pick" data-wq-input="input_types-video_field">
+                   Gallery
+                </button>
+              </div>
+              {{/native}}
+              {{^native}}
+              <input type="file" name="video_field" id="input_types-video_field" accept='video/*'
+                     data-wq-preview="input_types-video_field-preview">
+              {{/native}}
+              <p class="error input_types-video_field-errors"></p>
+            </li>
+            {{/video_field.name}}
+            {{#video_field.name}}
+            {{#video_field}}
+            <li class="ui-field-contain">
+              <img src="{{image_url}}">
+              <label for="input_types-video_field">Photo</label>
+              <input type="text" id="input_types-video_field" disabled
+                  value="{{name}} ({{type}}, {{body.size}} bytes)">
+              <p class="error input_types-video_field-errors"></p>
+            </li>
+            {{/video_field}}
+            {{/video_field.name}}
+            <li>
+              <div class="ui-grid-a">
+                <div class="ui-block-a">
+                  <a href="{{rt}}/inputtypes/{{id}}" data-role="button" data-icon="back" data-direction="reverse">
+                    Back
+                  </a>
+                </div>
+                <div class="ui-block-b">
+                  <button type="submit" data-icon="check" data-theme="b">
+                    Submit
+                  </button>
+                </div>
+              </div>
+              <p class="error input_types-errors"></p>
+            </li>
+          </ul>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>{{^id}}Add{{/id}}{{#id}}Edit{{/id}} repeat</title>
+    {{>head}}
+  </head>
+  <body>
+    <div data-role="page">
+      <div data-role="header">
+        {{>home}}
+        <h1>{{^id}}Add{{/id}}{{#id}}Edit{{/id}} repeat</h1>
+      </div>
+      <div role="main" class="ui-content">
+        <form action="{{svc}}/repeats/{{id}}" method="post" data-ajax="false"
+            data-wq-json="true"
+            {{#outbox_id}}
+              data-wq-outbox-id="{{outbox_id}}"
+              data-wq-outbox-preserve=""
+            {{/outbox_id}}>
+          {{>csrf}}
+          {{#id}}
+          <input type=hidden name="_method" value="PUT">
+          {{/id}}
+          <ul data-role="listview" data-inset="true">
+            <li class="ui-field-contain">
+              <label for='repeat-name'>Name</label>
+              <textarea id='repeat-name' name='name' data-xform-type="text" required>{{name}}</textarea>
+              <p class='error repeat-name-errors'></p>
+            </li>
+            <li data-role="list-divider">Items</li>
+            {{#items}}
+            {{#id}}
+            <input type="hidden" name="items[{{@index}}][id]" value="{{id}}">
+            {{/id}}
+            <li class="ui-field-contain">
+              <label for='repeat-items-{{@index}}-name'>Item Name</label>
+              <textarea id='repeat-items-{{@index}}-name' name='items[{{@index}}][name]' data-xform-type="text" required>{{name}}</textarea>
+              <p class='error repeat-items-{{@index}}-name-errors'></p>
+            </li>
+            <li class="ui-field-contain">
+              <label for='repeat-items-{{@index}}-count'>Item Count</label>
+              <input id='repeat-items-{{@index}}-count' type='number' data-xform-type='integer' name='items[{{@index}}][count]' required value="{{count}}">
+              <p class='error repeat-items-{{@index}}-count-errors'></p>
+            </li>
+            <li class="section-items"></li>
+            <li>
+              <button type="button" data-wq-action="addattachment" data-wq-section="items">
+                 Add Items
+              </button>
+            </li>
+            {{/items}}
+            <li data-role="list-divider">Nested</li>
+            {{#nested}}
+            {{#id}}
+            <input type="hidden" name="nested[{{@index}}][id]" value="{{id}}">
+            {{/id}}
+            <li class="ui-field-contain">
+              <label for='repeat-nested-name'>Name</label>
+              <textarea id='repeat-nested-name' name='nested[name]' data-xform-type="text" required>{{name}}</textarea>
+              <p class='error repeat-nested-name-errors'></p>
+            </li>
+            <li class="section-nested"></li>
+            {{/nested}}
+            <li>
+              <div class="ui-grid-a">
+                <div class="ui-block-a">
+                  <a href="{{rt}}/repeats/{{id}}" data-role="button" data-icon="back" data-direction="reverse">
+                    Back
+                  </a>
+                </div>
+                <div class="ui-block-b">
+                  <button type="submit" data-icon="check" data-theme="b">
+                    Submit
+                  </button>
+                </div>
+              </div>
+              <p class="error repeat-errors"></p>
+            </li>
+          </ul>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>

@@ -2,7 +2,8 @@ from .parser import parse_xls, generate_names
 from .renderer import render
 from pkg_resources import resource_filename
 
-default_template = resource_filename('xlsconv', 'templates/form.html')
+TEMPLATE_NAMES = ('list', 'detail', 'edit', 'popup')
+DEFAULT_TEMPLATE = 'edit'
 
 HTML5_INPUT_TYPES = {
     # Map XForm field types to <input type>
@@ -99,9 +100,13 @@ def html_context(xform_json):
     return context
 
 
-def xls2html(file_or_name, template_path=default_template):
+def xls2html(file_or_name, template_path=DEFAULT_TEMPLATE):
     xform_json = parse_xls(file_or_name)
     context = html_context(xform_json)
+    if template_path in TEMPLATE_NAMES:
+        template_path = resource_filename(
+            'xlsconv', 'templates/%s.html' % template_path
+        )
     return render(context, template_path)
 
 

@@ -30,14 +30,20 @@ pip3 install xlsconv
 # Use the default models.py template
 xls2django my-odk-survey.xls > myapp/models.py
 
+# Use the rest.py template (or admin.py, or serializers.py)
+xls2django my-odk-survey.xls rest > myapp/models.py
+
 # Use a custom template
 xls2django my-odk-survey.xls my_templates/models.py > myapp/models.py
 
-# Use the default form.html template
-xls2html my-odk-survey.xls > templates/survey_form.html
+# Use the default edit.html template
+xls2html my-odk-survey.xls > templates/survey_edit.html
+
+# Use the list.html template (or detail.html, or popup.html)
+xls2html my-odk-survey.xls list > templates/survey_list.html
 
 # Use a custom template
-xls2html my-odk-survey.xls my_templates/form.html > templates/survey_form.html
+xls2html my-odk-survey.xls my_templates/edit.html > templates/survey_edit.html
 ```
 
 If you are using wq, you may be interested in [wq.start], which uses xlsconv internally for the `wq addform` and `wq maketemplates` commands.
