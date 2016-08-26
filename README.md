@@ -22,7 +22,25 @@ xlsform-converter also supports a couple of additional "constraints" that are no
 [![Travis Build Status](https://img.shields.io/travis/wq/xlsform-converter/master.svg)](https://travis-ci.org/wq/xlsform-converter)
 [![Python Support](https://img.shields.io/pypi/pyversions/xlsconv.svg)](https://pypi.python.org/pypi/xlsconv)
 
+### Included Templates
+
+xlsform-converter uses the following templates to generate Django/wq project files from a given XLSForm.
+
+#### Django App Templates
+   - [`models.py`](https://github.com/wq/xlsform-converter/blob/master/xlsconv/templates/models.py-tpl)
+   - [`rest.py`](https://github.com/wq/xlsform-converter/blob/master/xlsconv/templates/rest.py-tpl) (for use with [`wq.db.rest`](https://wq.io/docs/about-rest))
+   - [`admin.py`](https://github.com/wq/xlsform-converter/blob/master/xlsconv/templates/admin.py-tpl) (for use with [`django.contrib.admin`](https://docs.djangoproject.com/en/1.10/ref/contrib/admin/))
+   - [`serializers.py`](https://github.com/wq/xlsform-converter/blob/master/xlsconv/templates/serializers.py-tpl) (for use with `wq.db.rest`)
+
+#### Mustache Templates (for use with [wq](https://wq.io/docs/templates))
+   - [`edit.html`](https://github.com/wq/xlsform-converter/blob/master/xlsconv/templates/edit.html)
+   - [`detail.html`](https://github.com/wq/xlsform-converter/blob/master/xlsconv/templates/detail.html)
+   - [`list.html`](https://github.com/wq/xlsform-converter/blob/master/xlsconv/templates/list.html)
+   - [`popup.html`](https://github.com/wq/xlsform-converter/blob/master/xlsconv/templates/popup.html) (for use with [wq/map.js](https://wq.io/docs/map-js))
+
 ### Usage
+
+If you are using wq, you may be interested in [wq.start], which uses xlsconv internally for the `wq addform` and `wq maketemplates` commands.  Otherwise, you can use xlsconv directly with the following command-line API:
 
 ```bash
 pip3 install xlsconv
@@ -45,8 +63,6 @@ xls2html my-odk-survey.xls list > templates/survey_list.html
 # Use a custom template
 xls2html my-odk-survey.xls my_templates/edit.html > templates/survey_edit.html
 ```
-
-If you are using wq, you may be interested in [wq.start], which uses xlsconv internally for the `wq addform` and `wq maketemplates` commands.
 
 [XLSForm standard]: http://xlsform.org/
 [Django models]: https://docs.djangoproject.com/en/1.9/topics/db/models/
