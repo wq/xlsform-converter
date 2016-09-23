@@ -3,7 +3,7 @@
   <label for='[[form.name]]-[[field_id]]'>[[label]]</label>
   <select id='[[form.name]]-[[field_id]]' data-xform-type='[[type]]' name='[[field_formname]]'[[#bind.required]] required[[/bind.required]][[#type_is_select]] multiple[[/type_is_select]]>
     [[#type_is_select1]]
-    <option value="">Select one..</option>
+    <option value="">Select one...</option>
     [[/type_is_select1]]
     {{#[[name]]_choices}}
     <option value="{{name}}"{{#selected}} selected{{/selected}}>
