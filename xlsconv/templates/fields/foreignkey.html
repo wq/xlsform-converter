@@ -2,7 +2,7 @@
 <li class="ui-field-contain">
   <label for='[[form.name]]-[[field_id]]'>[[label]]</label>
   <select id='[[form.name]]-[[field_id]]' data-xform-type='[[type]]' name='[[field_formname]]'[[#bind.required]] required[[/bind.required]]>
-    <option value="">Select one..</option>
+    <option value="">Select one...</option>
     {{#[[real_name]]_list}}
     <option value="{{id}}"{{#selected}} selected{{/selected}}>
       {{label}}
