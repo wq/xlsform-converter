@@ -1,4 +1,5 @@
 from django.db import models
+import pystache
 
 
 class Select(models.Model):
@@ -47,6 +48,11 @@ class Select(models.Model):
         "other_app.Site",
         verbose_name="Pick a Site ID",
     )
+
+    wq_label_template = "{{color}} - {{number}}"
+
+    def __str__(self):
+        return pystache.render(self.wq_label_template, self)
 
     class Meta:
         verbose_name = "select"

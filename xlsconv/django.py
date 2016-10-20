@@ -43,6 +43,18 @@ def django_context(xform_json):
         urlpath=plural_name,
     )
 
+    instance_name = context['form'].get('instance_name', '').strip()
+    if instance_name.startswith('concat(') and instance_name.endswith(')'):
+        label_template = ""
+        for part in instance_name[7:-1].split(','):
+            part = part.strip()
+            if part.startswith('${') and part.endswith('}'):
+                part = part.replace('${', '{{').replace('}', '}}')
+            elif part[0] in ('"', "'") and part[-1] in ('"', "'"):
+                part = part[1:-1]
+            label_template += part
+        context['form']['label_template'] = label_template
+
     def process_fields(fields):
         # Django field types
         for field in fields:

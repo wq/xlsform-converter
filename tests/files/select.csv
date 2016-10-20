@@ -23,3 +23,6 @@ choices,,,
 ,tags,cool,Cool
 ,tags,active,Active
 ,tags,recent,Recent
+settings,,
+,instance_name
+,"concat(${color}, ' - ', ${number})"

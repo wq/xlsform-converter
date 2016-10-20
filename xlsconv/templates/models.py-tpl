@@ -4,10 +4,20 @@ from django.contrib.gis.db import models
 {{^form.has_geo}}
 from django.db import models
 {{/form.has_geo}}
+{{#form.label_template}}
+import pystache
+{{/form.label_template}}
 
 
 class {{form.class_name}}(models.Model):
 {{#fields}}{{#django_type}}{{>fields/model_field}}{{/django_type}}{{/fields}}
+    {{#form.label_template}}
+    wq_label_template = "{{form.label_template}}"
+
+    def __str__(self):
+        return pystache.render(self.wq_label_template, self)
+
+    {{/form.label_template}}
     class Meta:
         verbose_name = "{{form.verbose_name}}"
         verbose_name_plural = "{{form.verbose_name_plural}}"{{#fields}}{{#wq:nested}}
