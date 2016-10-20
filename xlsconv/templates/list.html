@@ -28,10 +28,8 @@
           {{#unsyncedItems}}
           <li data-icon="{{#error}}alert{{/error}}{{^error}}minus{{/error}}">
             <a href="{{rt}}/outbox/{{id}}/edit">
-              Unsynced Item #{{id}}
-              {{#data}}
-              <!-- FIXME: use instanceName computation -->
-              {{/data}}
+              {{#label}}{{label}}{{/label}}
+              {{^label}}Unsynced Item #{{id}}{{/label}}
             </a>
           </li>
           {{/unsyncedItems}}
