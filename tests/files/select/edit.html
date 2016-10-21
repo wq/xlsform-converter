@@ -61,7 +61,7 @@
                 <option value="">Select one...</option>
                 {{#site_list}}
                 <option value="{{id}}"{{#selected}} selected{{/selected}}>
-                  {{label}}
+                 {{#outbox}}*{{/outbox}} {{label}}
                 </option>
                 {{/site_list}}
               </select>

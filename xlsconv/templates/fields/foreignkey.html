@@ -5,7 +5,7 @@
     <option value="">Select one...</option>
     {{#[[real_name]]_list}}
     <option value="{{id}}"{{#selected}} selected{{/selected}}>
-      {{label}}
+     {{#outbox}}*{{/outbox}} {{label}}
     </option>
     {{/[[real_name]]_list}}
   </select>
