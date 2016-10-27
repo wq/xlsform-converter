@@ -45,16 +45,20 @@ def html_context(xform_json):
         for field in fields:
             if 'wq:ForeignKey' in field:
                 field['real_name'] = field['name']
-                field['name'] = field['name'] + '_id'
+                if not field['name'].endswith(']'):
+                    field['name'] = field['name'] + '_id'
             field['field_name'] = field['name']
             if prefix:
+                fname = field['name']
                 if many:
                     formname = "%s[{{@index}}][%s]"
                     fieldid = "%s-{{@index}}-%s"
                 else:
                     formname = "%s[%s]"
                     fieldid = "%s-%s"
-                field['field_formname'] = formname % (prefix, field['name'])
+                    if fname.endswith(']'):
+                        fname = fname.replace(']', '').replace('[', '][')
+                field['field_formname'] = formname % (prefix, fname)
                 field['field_id'] = fieldid % (prefix, field['name'])
             else:
                 field['field_formname'] = field['name']
