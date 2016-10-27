@@ -6,4 +6,5 @@ from .serializers import RepeatSerializer
 rest.router.register_model(
     Repeat,
     serializer=RepeatSerializer,
+    fields="__all__",
 )

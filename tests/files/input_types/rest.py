@@ -4,6 +4,7 @@ from .models import InputTypes
 
 rest.router.register_model(
     InputTypes,
+    fields="__all__",
     map={
         'list': {
             'autoLayers': True,
