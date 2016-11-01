@@ -9,6 +9,5 @@ env:
  - LINT=1
 install:
  - pip install flake8
- - pip install https://github.com/sheppard/pyxform/archive/xml.zip
 script:
  - ./runtests.sh
