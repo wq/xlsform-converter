@@ -34,7 +34,7 @@ def parse_markdown_readme():
 
 setup(
     name='xlsconv',
-    version='0.3.0',
+    version='0.4.0-dev',
     author='S. Andrew Sheppard',
     author_email='andrew@wq.io',
     url='https://github.com/wq/xlsform-converter',
