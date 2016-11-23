@@ -46,3 +46,7 @@ class SurveyTestCase(unittest.TestCase):
     def test_repeat(self):
         self.check_django('repeat', 'csv')
         self.check_html('repeat', 'csv')
+
+    def test_nestedfk(self):
+        self.check_django('nestedfk', 'csv')
+        self.check_html('nestedfk', 'csv')

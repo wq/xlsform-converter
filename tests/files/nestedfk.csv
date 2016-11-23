@@ -1,0 +1,10 @@
+survey,,,
+,type,name,label,constraint,required
+,text,name,Name,,yes,
+,begin repeat,items,Items,wq:initial(3),yes
+,string,type,Item Type,wq:ForeignKey("otherapp.Type"),yes,
+,text,name,Item Name,,yes,
+,end repeat,,,,,
+,begin group,nested,Nested,,yes
+,string,group,Group,wq:ForeignKey("otherapp.Group"),yes,
+,end group,,,,
