@@ -72,12 +72,6 @@ def django_context(xform_json):
                 continue
             if 'type_info' not in field or 'note' in field['type']:
                 continue
-            qtype = field['type_info']['bind']['type']
-            if qtype == 'binary':
-                for qt in IMAGE_SUBTYPES:
-                    if qt in field['type']:
-                        qtype = 'image'
-                        break
 
             if 'choices' in field:
                 field['has_choices'] = True
@@ -87,15 +81,23 @@ def django_context(xform_json):
                         max_len = len(choice['name'])
                 field['max_len'] = max_len
 
+            qtype = field['type_info']['bind']['type']
             field['type_is_%s' % qtype] = True
             field['subtype_is_%s' % field['type']] = True
             field['field_name'] = field['name'].lower().replace('-', '_')
+
             if 'wq:ForeignKey' in field:
                 field['django_type'] = "ForeignKey"
             elif 'wq:length' in field and qtype == "string":
                 field['django_type'] = "CharField"
+            elif qtype == 'binary':
+                field['django_type'] = DJANGO_TYPES['binary']
+                for qt in IMAGE_SUBTYPES:
+                    if qt in field['type']:
+                        field['django_type'] = DJANGO_TYPES['image']
             else:
                 field['django_type'] = DJANGO_TYPES[qtype]
+
             if qtype.startswith('geo'):
                 context['form']['has_geo'] = True
                 field['type_is_geo'] = True

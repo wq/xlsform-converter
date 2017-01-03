@@ -1,8 +1,7 @@
     {{field_name}} = models.{{django_type}}({{#wq:ForeignKey}}
         {{{wq:ForeignKey}}},{{/wq:ForeignKey}}{{#wq:length}}
         max_length={{{wq:length}}},{{/wq:length}}{{#type_is_binary}}
-        upload_to="{{form.urlpath}}",{{/type_is_binary}}{{#type_is_image}}
-        upload_to="{{form.urlpath}}",{{/type_is_image}}{{#type_is_geo}}
+        upload_to="{{form.urlpath}}",{{/type_is_binary}}{{#type_is_geo}}
         srid=4326,{{/type_is_geo}}{{#has_choices}}
         choices=({{#choices}}
             ("{{name}}", "{{label}}"),{{/choices}}

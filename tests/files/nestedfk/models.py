@@ -23,6 +23,10 @@ class Item(models.Model):
     name = models.TextField(
         verbose_name="Item Name",
     )
+    photo = models.ImageField(
+        upload_to="nestedfks",
+        verbose_name="Photo",
+    )
 
     class Meta:
         verbose_name = "item"
