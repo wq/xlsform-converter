@@ -15,6 +15,12 @@ def parse_xls(file_or_name):
         filename = fileobj.name
     xform_json = parse_file_to_json(filename, file_object=fileobj)
 
+    # Remove 'meta' field from form
+    xform_json['children'] = [
+        field for field in xform_json['children']
+        if field['type'] != 'group' or field['name'] != 'meta'
+    ]
+
     def process_fields(root):
         for field in root['children']:
             cons = field.get('bind', {}).get('constraint', '')
@@ -26,8 +32,7 @@ def parse_xls(file_or_name):
 
             if field['type'] in GROUP_TYPES:
                 process_fields(field)
-                if not field['name'] == "meta":
-                    field['wq:nested'] = True
+                field['wq:nested'] = True
                 if field['type'] == 'repeat':
                     field['wq:many'] = True
                 continue
