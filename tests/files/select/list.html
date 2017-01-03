@@ -9,11 +9,11 @@
       <div data-role="header">
         {{>home}}
         <h1>select List{{#parent_id}} for {{parent_label}}{{/parent_id}}</h1>
-        {{#page_config.can_edit}}
-        <a href="{{rt}}/selects/new" data-icon="plus">
+        {{#page_config.can_add}}
+        <a href="{{rt}}/selects/new{{#parent_id}}?{{parent_page}}_id={{parent_id}}{{/parent_id}}" data-icon="plus">
           Add New
         </a>
-        {{/page_config.can_edit}}
+        {{/page_config.can_add}}
       </div>
       <div role="main" class="ui-content">
         {{#parent_id}}
@@ -67,9 +67,11 @@
               <a href="{{rt}}/selects/{{id}}">{{label}}</a>
             </li>
             {{/list}}
+            {{#page_config.can_add}}
             <li data-icon="plus" data-theme="b">
               <a href="{{rt}}/selects/new{{#parent_id}}?{{parent_page}}_id={{parent_id}}{{/parent_id}}">Add select</a>
             </li>
+            {{/page_config.can_add}}
           </ul>
       </div>
       {{>paginator}}
