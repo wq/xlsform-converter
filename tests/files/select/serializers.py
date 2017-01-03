@@ -6,3 +6,4 @@ class SelectSerializer(patterns.AttachedModelSerializer):
 
     class Meta:
         model = Select
+        fields = "__all__"

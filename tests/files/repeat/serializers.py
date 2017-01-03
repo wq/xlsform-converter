@@ -25,3 +25,4 @@ class RepeatSerializer(patterns.AttachedModelSerializer):
 
     class Meta:
         model = Repeat
+        fields = "__all__"

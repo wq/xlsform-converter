@@ -17,3 +17,4 @@ class {{form.class_name}}Serializer(patterns.AttachedModelSerializer):{{#fields}
 
     class Meta:
         model = {{form.class_name}}
+        fields = "__all__"

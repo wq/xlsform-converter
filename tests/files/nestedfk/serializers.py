@@ -25,3 +25,4 @@ class NestedfkSerializer(patterns.AttachedModelSerializer):
 
     class Meta:
         model = Nestedfk
+        fields = "__all__"
