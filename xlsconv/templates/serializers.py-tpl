@@ -13,7 +13,7 @@ class {{class_name}}Serializer(patterns.AttachmentSerializer):
 
 {{/wq:nested}}{{/fields}}
 class {{form.class_name}}Serializer(patterns.AttachedModelSerializer):{{#fields}}{{#wq:nested}}
-    {{name}} = {{class_name}}Serializer(many=True){{/wq:nested}}{{/fields}}
+    {{name}} = {{class_name}}Serializer(many=True{{^bind.required}}, required=False{{/bind.required}}){{/wq:nested}}{{/fields}}
 
     class Meta:
         model = {{form.class_name}}
