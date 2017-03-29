@@ -28,9 +28,9 @@
             [[#wq:nested]]
             <li data-role="list-divider">[[label]]</li>
             {{#[[plural_name]]}}
-            {{#id}}
+            {{^new_attachment}}{{#id}}
             <input type="hidden" name="[[plural_name]][{{@index}}][id]" value="{{id}}">
-            {{/id}}
+            {{/id}}{{/new_attachment}}
             [[#children]]
             [[>fields/html_field]]
             [[/children]]

@@ -29,9 +29,9 @@
             </li>
             <li data-role="list-divider">Items</li>
             {{#items}}
-            {{#id}}
+            {{^new_attachment}}{{#id}}
             <input type="hidden" name="items[{{@index}}][id]" value="{{id}}">
-            {{/id}}
+            {{/id}}{{/new_attachment}}
             <li class="ui-field-contain">
               <label for='repeat-items-{{@index}}-name'>Item Name</label>
               <textarea id='repeat-items-{{@index}}-name' name='items[{{@index}}][name]' data-xform-type="text" required>{{name}}</textarea>
@@ -51,9 +51,9 @@
             </li>
             <li data-role="list-divider">Nested</li>
             {{#nested}}
-            {{#id}}
+            {{^new_attachment}}{{#id}}
             <input type="hidden" name="nested[{{@index}}][id]" value="{{id}}">
-            {{/id}}
+            {{/id}}{{/new_attachment}}
             <li class="ui-field-contain">
               <label for='repeat-nested-name'>Name</label>
               <textarea id='repeat-nested-name' name='nested[name]' data-xform-type="text" required>{{name}}</textarea>

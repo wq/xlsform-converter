@@ -29,9 +29,9 @@
             </li>
             <li data-role="list-divider">Items</li>
             {{#items}}
-            {{#id}}
+            {{^new_attachment}}{{#id}}
             <input type="hidden" name="items[{{@index}}][id]" value="{{id}}">
-            {{/id}}
+            {{/id}}{{/new_attachment}}
             <li class="ui-field-contain">
               <label for='nestedfk-items-{{@index}}-type_id'>Item Type</label>
               <select id='nestedfk-items-{{@index}}-type_id' data-xform-type='string' name='items[{{@index}}][type_id]' required>
@@ -95,9 +95,9 @@
             </li>
             <li data-role="list-divider">Nested</li>
             {{#nested}}
-            {{#id}}
+            {{^new_attachment}}{{#id}}
             <input type="hidden" name="nested[{{@index}}][id]" value="{{id}}">
-            {{/id}}
+            {{/id}}{{/new_attachment}}
             <li class="ui-field-contain">
               <label for='nestedfk-nested-group_id'>Group</label>
               <select id='nestedfk-nested-group_id' data-xform-type='string' name='nested[group_id]' required>
