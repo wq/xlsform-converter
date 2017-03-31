@@ -9,6 +9,19 @@
       <div data-role="header">
         {{>home}}
         <h1>{{^id}}Add{{/id}}{{#id}}Edit{{/id}} repeat</h1>
+        {{#id}}
+        {{#page_config.can_delete}}
+        <form action="{{svc}}/repeats/{{id}}" method="post" data-ajax="false"
+          data-wq-json="true" data-wq-background-sync="false"
+          onsubmit="return confirm('Are you sure you want to delete this record?');">
+          {{>csrf}}
+          <input type=hidden name="_method" value="DELETE">
+          <button type="submit" data-icon="delete" class="ui-btn-right">
+            Delete
+          </button>
+        </form>
+        {{/page_config.can_delete}}
+        {{/id}}
       </div>
       <div role="main" class="ui-content">
         <form action="{{svc}}/repeats/{{id}}" method="post" data-ajax="false"
