@@ -43,7 +43,12 @@ xlsform-converter uses the following templates to generate Django/wq project fil
 If you are using wq, you may be interested in [wq.start], which uses xlsconv internally for the `wq addform` and `wq maketemplates` commands.  Otherwise, you can use xlsconv directly with the following command-line API:
 
 ```bash
-pip3 install xlsconv
+# Recommended: create virtual environment
+# python3 -m venv venv
+# . venv/bin/activate
+
+# Install xlsconv
+pip install xlsconv
 
 # Use the default models.py template
 xls2django my-odk-survey.xls > myapp/models.py
