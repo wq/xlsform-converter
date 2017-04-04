@@ -13,7 +13,7 @@
         {{#page_config.can_delete}}
         <form action="{{svc}}/inputtypes/{{id}}" method="post" data-ajax="false"
           data-wq-json="true" data-wq-background-sync="false"
-          onsubmit="return confirm('Are you sure you want to delete this record?');">
+          onsubmit="return require('wq/app').confirmSubmit(this, 'Are you sure you want to delete this record?');">
           {{>csrf}}
           <input type=hidden name="_method" value="DELETE">
           <button type="submit" data-icon="delete" class="ui-btn-right">
@@ -110,11 +110,11 @@
               <input type="hidden" name="image_field" id="input_types-image_field"
                      data-wq-type="file" data-wq-preview="input_types-image_field-preview">
               <div>
-                <button type="button" data-inline="true" data-icon="camera"
+                <button type="button" data-inline="true" data-icon="camera" data-mini="true"
                    data-wq-action="take" data-wq-input="input_types-image_field">
                    Camera
                 </button>
-                <button type="button" data-inline="true" data-icon="grid"
+                <button type="button" data-inline="true" data-icon="grid" data-mini="true"
                    data-wq-action="pick" data-wq-input="input_types-image_field">
                    Gallery
                 </button>
@@ -147,11 +147,11 @@
               <input type="hidden" name="audio_field" id="input_types-audio_field"
                      data-wq-type="file" data-wq-preview="input_types-audio_field-preview">
               <div>
-                <button type="button" data-inline="true" data-icon="camera"
+                <button type="button" data-inline="true" data-icon="camera" data-mini="true"
                    data-wq-action="take" data-wq-input="input_types-audio_field">
                    Camera
                 </button>
-                <button type="button" data-inline="true" data-icon="grid"
+                <button type="button" data-inline="true" data-icon="grid" data-mini="true"
                    data-wq-action="pick" data-wq-input="input_types-audio_field">
                    Gallery
                 </button>
@@ -184,11 +184,11 @@
               <input type="hidden" name="video_field" id="input_types-video_field"
                      data-wq-type="file" data-wq-preview="input_types-video_field-preview">
               <div>
-                <button type="button" data-inline="true" data-icon="camera"
+                <button type="button" data-inline="true" data-icon="camera" data-mini="true"
                    data-wq-action="take" data-wq-input="input_types-video_field">
                    Camera
                 </button>
-                <button type="button" data-inline="true" data-icon="grid"
+                <button type="button" data-inline="true" data-icon="grid" data-mini="true"
                    data-wq-action="pick" data-wq-input="input_types-video_field">
                    Gallery
                 </button>

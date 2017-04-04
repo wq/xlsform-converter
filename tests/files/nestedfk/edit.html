@@ -13,7 +13,7 @@
         {{#page_config.can_delete}}
         <form action="{{svc}}/nestedfks/{{id}}" method="post" data-ajax="false"
           data-wq-json="true" data-wq-background-sync="false"
-          onsubmit="return confirm('Are you sure you want to delete this record?');">
+          onsubmit="return require('wq/app').confirmSubmit(this, 'Are you sure you want to delete this record?');">
           {{>csrf}}
           <input type=hidden name="_method" value="DELETE">
           <button type="submit" data-icon="delete" class="ui-btn-right">
@@ -71,11 +71,11 @@
               <input type="hidden" name="items[{{@index}}][photo]" id="nestedfk-items-{{@index}}-photo"
                      data-wq-type="file" data-wq-preview="nestedfk-items-{{@index}}-photo-preview">
               <div>
-                <button type="button" data-inline="true" data-icon="camera"
+                <button type="button" data-inline="true" data-icon="camera" data-mini="true"
                    data-wq-action="take" data-wq-input="nestedfk-items-{{@index}}-photo">
                    Camera
                 </button>
-                <button type="button" data-inline="true" data-icon="grid"
+                <button type="button" data-inline="true" data-icon="grid" data-mini="true"
                    data-wq-action="pick" data-wq-input="nestedfk-items-{{@index}}-photo">
                    Gallery
                 </button>
