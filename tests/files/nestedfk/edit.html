@@ -64,8 +64,14 @@
             </li>
             {{^photo.name}}
             <li class="ui-field-contain">
+              {{#photo}}
+              <img src="{{photo}}"
+                   id="nestedfk-items-{{@index}}-photo-preview">
+              {{/photo}}
+              {{^photo}}
               <img src="{{rt}}/images/empty.png"
                    id="nestedfk-items-{{@index}}-photo-preview">
+              {{/photo}}
               <label for="nestedfk-items-{{@index}}-photo">Photo</label>
               {{#native}}
               <input type="hidden" name="items[{{@index}}][photo]" id="nestedfk-items-{{@index}}-photo"

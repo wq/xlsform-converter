@@ -103,9 +103,15 @@
             </li>
             {{^image_field.name}}
             <li class="ui-field-contain">
+              {{#image_field}}
+              <img src="{{image_field}}"
+                   id="input_types-image_field-preview">
+              {{/image_field}}
+              {{^image_field}}
               <img src="{{rt}}/images/empty.png"
                    id="input_types-image_field-preview">
-              <label for="input_types-image_field">Photo</label>
+              {{/image_field}}
+              <label for="input_types-image_field">Image field</label>
               {{#native}}
               <input type="hidden" name="image_field" id="input_types-image_field"
                      data-wq-type="file" data-wq-preview="input_types-image_field-preview">
@@ -124,6 +130,7 @@
               <input type="file" name="image_field" id="input_types-image_field" accept='image/*'
                      data-wq-preview="input_types-image_field-preview">
               {{/native}}
+              <p class="hint">Add an image.</p>
               <p class="error input_types-image_field-errors"></p>
             </li>
             {{/image_field.name}}
@@ -131,18 +138,25 @@
             {{#image_field}}
             <li class="ui-field-contain">
               <img src="{{image_url}}">
-              <label for="input_types-image_field">Photo</label>
+              <label for="input_types-image_field">Image field</label>
               <input type="text" id="input_types-image_field" disabled
                   value="{{name}} ({{type}}, {{body.size}} bytes)">
+              <p class="hint">Add an image.</p>
               <p class="error input_types-image_field-errors"></p>
             </li>
             {{/image_field}}
             {{/image_field.name}}
             {{^audio_field.name}}
             <li class="ui-field-contain">
+              {{#audio_field}}
+              <img src="{{audio_field}}"
+                   id="input_types-audio_field-preview">
+              {{/audio_field}}
+              {{^audio_field}}
               <img src="{{rt}}/images/empty.png"
                    id="input_types-audio_field-preview">
-              <label for="input_types-audio_field">Photo</label>
+              {{/audio_field}}
+              <label for="input_types-audio_field">Audio field</label>
               {{#native}}
               <input type="hidden" name="audio_field" id="input_types-audio_field"
                      data-wq-type="file" data-wq-preview="input_types-audio_field-preview">
@@ -161,6 +175,7 @@
               <input type="file" name="audio_field" id="input_types-audio_field" accept='audio/*'
                      data-wq-preview="input_types-audio_field-preview">
               {{/native}}
+              <p class="hint">Add an audio file.</p>
               <p class="error input_types-audio_field-errors"></p>
             </li>
             {{/audio_field.name}}
@@ -168,18 +183,25 @@
             {{#audio_field}}
             <li class="ui-field-contain">
               <img src="{{image_url}}">
-              <label for="input_types-audio_field">Photo</label>
+              <label for="input_types-audio_field">Audio field</label>
               <input type="text" id="input_types-audio_field" disabled
                   value="{{name}} ({{type}}, {{body.size}} bytes)">
+              <p class="hint">Add an audio file.</p>
               <p class="error input_types-audio_field-errors"></p>
             </li>
             {{/audio_field}}
             {{/audio_field.name}}
             {{^video_field.name}}
             <li class="ui-field-contain">
+              {{#video_field}}
+              <img src="{{video_field}}"
+                   id="input_types-video_field-preview">
+              {{/video_field}}
+              {{^video_field}}
               <img src="{{rt}}/images/empty.png"
                    id="input_types-video_field-preview">
-              <label for="input_types-video_field">Photo</label>
+              {{/video_field}}
+              <label for="input_types-video_field">Video field</label>
               {{#native}}
               <input type="hidden" name="video_field" id="input_types-video_field"
                      data-wq-type="file" data-wq-preview="input_types-video_field-preview">
@@ -198,6 +220,7 @@
               <input type="file" name="video_field" id="input_types-video_field" accept='video/*'
                      data-wq-preview="input_types-video_field-preview">
               {{/native}}
+              <p class="hint">Add a video.</p>
               <p class="error input_types-video_field-errors"></p>
             </li>
             {{/video_field.name}}
@@ -205,9 +228,10 @@
             {{#video_field}}
             <li class="ui-field-contain">
               <img src="{{image_url}}">
-              <label for="input_types-video_field">Photo</label>
+              <label for="input_types-video_field">Video field</label>
               <input type="text" id="input_types-video_field" disabled
                   value="{{name}} ({{type}}, {{body.size}} bytes)">
+              <p class="hint">Add a video.</p>
               <p class="error input_types-video_field-errors"></p>
             </li>
             {{/video_field}}

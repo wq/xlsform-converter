@@ -1,9 +1,15 @@
 {{=[[ ]]=}}
 {{^[[name]].name}}
 <li class="ui-field-contain">
+  {{#[[name]]}}
+  <img src="{{[[name]]}}"
+       id="[[form.name]]-[[field_id]]-preview">
+  {{/[[name]]}}
+  {{^[[name]]}}
   <img src="{{rt}}/images/empty.png"
        id="[[form.name]]-[[field_id]]-preview">
-  <label for="[[form.name]]-[[field_id]]">Photo</label>
+  {{/[[name]]}}
+  <label for="[[form.name]]-[[field_id]]">[[label]]</label>
   {{#native}}
   <input type="hidden" name="[[field_formname]]" id="[[form.name]]-[[field_id]]"
          data-wq-type="file" data-wq-preview="[[form.name]]-[[field_id]]-preview">
@@ -22,6 +28,9 @@
   <input type="file" name="[[field_formname]]" id="[[form.name]]-[[field_id]]"[[#type_info.control.mediatype]] accept='[[type_info.control.mediatype]]'[[/type_info.control.mediatype]]
          data-wq-preview="[[form.name]]-[[field_id]]-preview">
   {{/native}}
+  [[#hint]]
+  <p class="hint">[[hint]]</p>
+  [[/hint]]
   <p class="error [[form.name]]-[[field_id]]-errors"></p>
 </li>
 {{/[[name]].name}}
@@ -29,9 +38,12 @@
 {{#[[name]]}}
 <li class="ui-field-contain">
   <img src="{{image_url}}">
-  <label for="[[form.name]]-[[field_id]]">Photo</label>
+  <label for="[[form.name]]-[[field_id]]">[[label]]</label>
   <input type="text" id="[[form.name]]-[[field_id]]" disabled
       value="{{name}} ({{type}}, {{body.size}} bytes)">
+  [[#hint]]
+  <p class="hint">[[hint]]</p>
+  [[/hint]]
   <p class="error [[form.name]]-[[field_id]]-errors"></p>
 </li>
 {{/[[name]]}}
