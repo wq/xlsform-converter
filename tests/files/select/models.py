@@ -46,6 +46,7 @@ class Select(models.Model):
     )
     site = models.ForeignKey(
         "other_app.Site",
+        on_delete=models.CASCADE,
         verbose_name="Pick a Site ID",
     )
 

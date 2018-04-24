@@ -14,10 +14,12 @@ class Nestedfk(models.Model):
 class Item(models.Model):
     nestedfk = models.ForeignKey(
         Nestedfk,
+        on_delete=models.CASCADE,
         related_name="items",
     )
     type = models.ForeignKey(
         "otherapp.Type",
+        on_delete=models.CASCADE,
         verbose_name="Item Type",
     )
     name = models.TextField(
@@ -36,9 +38,11 @@ class Item(models.Model):
 class Nested(models.Model):
     nestedfk = models.OneToOneField(
         Nestedfk,
+        on_delete=models.CASCADE,
     )
     group = models.ForeignKey(
         "otherapp.Group",
+        on_delete=models.CASCADE,
         verbose_name="Group",
     )
 

@@ -25,7 +25,8 @@ class {{form.class_name}}(models.Model):
 
 class {{class_name}}(models.Model):
     {{form.field_name}} = models.{{#wq:many}}ForeignKey{{/wq:many}}{{^wq:many}}OneToOneField{{/wq:many}}(
-        {{form.class_name}},{{#wq:many}}
+        {{form.class_name}},
+        on_delete=models.CASCADE,{{#wq:many}}
         related_name="{{verbose_name_plural}}",{{/wq:many}}
     )
 {{#children}}{{#django_type}}{{>fields/model_field}}{{/django_type}}{{/children}}
