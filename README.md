@@ -12,7 +12,7 @@ xlsform-converter also supports a couple of additional "constraints" that are no
  * `wq:initial(3)`: Very similar to `repeat_count`, but only set for new records.
  * `wq:length(5)`: Text field maximum length (similar to a `string-length` constraint)
 
-[![Latest PyPI Release](https://img.shields.io/pypi/v/xlsconv.svg)](https://pypi.python.org/pypi/xlsconv)
+[![Latest PyPI Release](https://img.shields.io/pypi/v/xlsconv.svg)](https://pypi.org/project/xlsconv)
 [![Release Notes](https://img.shields.io/github/release/wq/xlsform-converter.svg)](https://github.com/wq/xlsform-converter/releases)
 [![License](https://img.shields.io/pypi/l/xlsconv.svg)](https://github.com/wq/xlsform-converter/blob/master/LICENSE)
 [![GitHub Stars](https://img.shields.io/github/stars/wq/xlsform-converter.svg)](https://github.com/wq/xlsform-converter/stargazers)
