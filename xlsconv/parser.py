@@ -28,7 +28,7 @@ def parse_xls(file_or_name):
                 cons = cons[3:]
                 for ext in WQ_EXTENSIONS:
                     if cons.startswith(ext + "(") and cons.endswith(")"):
-                            field['wq:%s' % ext] = cons[len(ext) + 1:-1]
+                        field['wq:%s' % ext] = cons[len(ext) + 1:-1]
 
             if field['type'] in GROUP_TYPES:
                 process_fields(field)
