@@ -7,26 +7,9 @@ Tool to convert ODK-style XLSForms into Django models and HTML templates for use
 """
 
 
-def parse_markdown_readme():
-    """
-    Convert README.md to RST via pandoc, and load into memory
-    (fallback to LONG_DESCRIPTION on failure)
-    """
-    # Attempt to run pandoc on markdown file
-    import subprocess
+def readme():
     try:
-        subprocess.call(
-            ['pandoc', '-t', 'rst', '-o', 'README.rst', 'README.md']
-        )
-    except OSError:
-        return LONG_DESCRIPTION
-
-    # Attempt to load output
-    try:
-        readme = open(os.path.join(
-            os.path.dirname(__file__),
-            'README.rst'
-        ))
+        readme = open('README.md')
     except IOError:
         return LONG_DESCRIPTION
     return readme.read()
@@ -34,7 +17,7 @@ def parse_markdown_readme():
 
 setup(
     name='xlsconv',
-    version='1.1.1-dev',
+    use_scm_version=True,
     author='S. Andrew Sheppard',
     author_email='andrew@wq.io',
     url='https://github.com/wq/xlsform-converter',
@@ -47,10 +30,14 @@ setup(
         ],
     },
     description=LONG_DESCRIPTION.strip(),
-    long_description=parse_markdown_readme(),
+    long_description=readme(),
+    long_description_content_type='text/markdown',
     install_requires=[
         'pystache',
         'pyxform',
+    ],
+    setup_requires=[
+        'setuptools_scm',
     ],
     entry_points='''
         [console_scripts]
