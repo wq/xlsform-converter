@@ -12,8 +12,7 @@
         {{#id}}
         {{#page_config.can_delete}}
         <form action="{{svc}}/inputtypes/{{id}}" method="post" data-ajax="false"
-          data-wq-json="true" data-wq-background-sync="false"
-          onsubmit="return require('wq/app').confirmSubmit(this, 'Are you sure you want to delete this record?');">
+          data-wq-json="true" data-wq-background-sync="false" data-wq-confirm>
           {{>csrf}}
           <input type=hidden name="_method" value="DELETE">
           <button type="submit" data-icon="delete" class="ui-btn-right">
