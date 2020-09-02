@@ -61,7 +61,8 @@ def main():
     import json
     print(json.dumps(
         parse_xls(*sys.argv[1:]),
-        indent=4
+        indent=4,
+        sort_keys=True,
     ))
 
 
