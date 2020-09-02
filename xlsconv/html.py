@@ -80,7 +80,14 @@ def html_context(xform_json):
                 continue
             if 'type_info' not in field:
                 continue
-            qtype = field['type_info']['bind']['type']
+
+            if field['type'] in ('select1', 'select one'):
+                qtype = 'select1'
+            elif field['type'].startswith('select'):
+                qtype = 'select'
+            else:
+                qtype = field['type_info']['bind']['type']
+
             if qtype == 'string':
                 for qt in STRING_SUBTYPES:
                     if qt in field['type']:

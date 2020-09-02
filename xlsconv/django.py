@@ -81,7 +81,13 @@ def django_context(xform_json):
                         max_len = len(choice['name'])
                 field['max_len'] = max_len
 
-            qtype = field['type_info']['bind']['type']
+            if field['type'] in ('select1', 'select one'):
+                qtype = 'select1'
+            elif field['type'].startswith('select'):
+                qtype = 'select'
+            else:
+                qtype = field['type_info']['bind']['type']
+
             field['type_is_%s' % qtype] = True
             field['subtype_is_%s' % field['type']] = True
             field['field_name'] = field['name'].lower().replace('-', '_')

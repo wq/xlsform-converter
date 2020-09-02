@@ -1,4 +1,4 @@
-from pyxform.xls2json import parse_file_to_json
+from pyxform.xls2json import parse_file_to_json, get_filename
 from pyxform.question_type_dictionary import QUESTION_TYPE_DICT as QTYPES
 
 GROUP_TYPES = ['group', 'repeat']
@@ -13,7 +13,11 @@ def parse_xls(file_or_name):
     else:
         fileobj = file_or_name
         filename = fileobj.name
-    xform_json = parse_file_to_json(filename, file_object=fileobj)
+    xform_json = parse_file_to_json(
+        filename,
+        file_object=fileobj,
+        default_name=get_filename(filename)
+    )
 
     # Remove 'meta' field from form
     xform_json['children'] = [
