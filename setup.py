@@ -33,9 +33,10 @@ setup(
     long_description=readme(),
     long_description_content_type="text/markdown",
     install_requires=[
-        "pystache",
         "pyxform",
+        "astunparse",
         "black",
+        "pystache",
     ],
     setup_requires=[
         "setuptools_scm",
