@@ -19,7 +19,7 @@ xlsform-converter also supports a couple of additional "constraints" that are no
 [![GitHub Forks](https://img.shields.io/github/forks/wq/xlsform-converter.svg)](https://github.com/wq/xlsform-converter/network)
 [![GitHub Issues](https://img.shields.io/github/issues/wq/xlsform-converter.svg)](https://github.com/wq/xlsform-converter/issues)
 
-[![Travis Build Status](https://img.shields.io/travis/wq/xlsform-converter/master.svg)](https://travis-ci.org/wq/xlsform-converter)
+[![Tests](https://github.com/wq/xlsform-converter/actions/workflows/test.yml/badge.svg)](https://github.com/wq/xlsform-converter/actions/workflows/test.yml)
 [![Python Support](https://img.shields.io/pypi/pyversions/xlsconv.svg)](https://pypi.python.org/pypi/xlsconv)
 
 ### Included Templates
