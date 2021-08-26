@@ -5,18 +5,18 @@ from .models import Nestedfk, Item, Nested
 class ItemSerializer(patterns.AttachmentSerializer):
     class Meta(patterns.AttachmentSerializer.Meta):
         model = Item
-        exclude = ('nestedfk',)
-        object_field = 'nestedfk'
+        exclude = ("nestedfk",)
+        object_field = "nestedfk"
         wq_config = {
-            'initial': 3,
+            "initial": 3,
         }
 
 
 class NestedSerializer(patterns.AttachmentSerializer):
     class Meta(patterns.AttachmentSerializer.Meta):
         model = Nested
-        exclude = ('nestedfk',)
-        object_field = 'nestedfk'
+        exclude = ("nestedfk",)
+        object_field = "nestedfk"
 
 
 class NestedfkSerializer(patterns.AttachedModelSerializer):

@@ -5,18 +5,18 @@ from .models import Repeat, Item, Nested
 class ItemSerializer(patterns.AttachmentSerializer):
     class Meta(patterns.AttachmentSerializer.Meta):
         model = Item
-        exclude = ('repeat',)
-        object_field = 'repeat'
+        exclude = ("repeat",)
+        object_field = "repeat"
         wq_config = {
-            'initial': 3,
+            "initial": 3,
         }
 
 
 class NestedSerializer(patterns.AttachmentSerializer):
     class Meta(patterns.AttachmentSerializer.Meta):
         model = Nested
-        exclude = ('repeat',)
-        object_field = 'repeat'
+        exclude = ("repeat",)
+        object_field = "repeat"
 
 
 class RepeatSerializer(patterns.AttachedModelSerializer):

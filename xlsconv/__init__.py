@@ -5,10 +5,10 @@ from .renderer import render
 
 
 __all__ = [
-    'xls2html',
-    'html_context',
-    'xls2django',
-    'django_context',
-    'parse_xls',
-    'render',
+    "xls2html",
+    "html_context",
+    "xls2django",
+    "django_context",
+    "parse_xls",
+    "render",
 ]

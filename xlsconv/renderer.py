@@ -10,4 +10,4 @@ def render(context, template_path):
         search_dirs=[folder],
         file_extension=ext[1:],
     )
-    return renderer.render('{{>%s}}' % template_name, context)
+    return renderer.render("{{>%s}}" % template_name, context)
