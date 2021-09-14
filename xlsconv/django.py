@@ -26,6 +26,7 @@ TEMPLATES = {
     "admin": lambda node: node.as_admin(),
     "models": lambda node: node.as_models(),
     "rest": lambda node: node.as_rest(),
+    "wizard": lambda node: node.as_wizard(),
     "serializers": lambda node: node.as_serializers(),
 }
 TEMPLATE_NAMES = list(TEMPLATES.keys())
@@ -275,6 +276,25 @@ class Node:
                     ast_name(self.class_name),
                     **kwargs,
                 )
+            ),
+        )
+
+    def as_wizard(self):
+        if self.config.get("has_nested"):
+            serializer = f"{self.class_name}Serializer"
+            args = [self.name, ast_name(serializer)]
+        else:
+            serializer = None
+            args = [ast_name(self.class_name)]
+
+        return ast_module(
+            ast_import("data_wizard"),
+            ast_import(".models", self.class_name),
+            ast_import(".serializers", serializer) if serializer else None,
+            ast_newline(),
+            ast_newline(),
+            ast_expr(
+                ast_call("data_wizard.register", *args)
             ),
         )
 
