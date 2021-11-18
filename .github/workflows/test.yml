@@ -19,7 +19,8 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         python -m pip install flake8 wheel
-        python -m pip install pyxform astunparse black pystache
+        python -m pip install pyxform astunparse black
+        python -m pip install https://github.com/PennyDreadfulMTG/pystache/releases/download/v0.6.0/pystache-0.6.0-py3-none-any.whl
     - name: Lint with flake8
       run: |
         # stop the build if there are Python syntax errors or undefined names
