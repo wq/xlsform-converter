@@ -14,6 +14,7 @@ from .ast import (
     ast_return,
     ast_trailing_comma,
     ast_newline,
+    ast_comment,
     ast_dict,
     ast_list,
     ast_tuple,
@@ -55,10 +56,23 @@ IMAGE_SUBTYPES = ("image", "photo", "picture")
 
 class Node:
     def __init__(self, name, parent=None, children=None, **kwargs):
+        if parent and parent.parent and not parent.config.get('wq:many'):
+            if name in parent.parent.reserved:
+                name = f'{parent.name}_{name}'
+                if name in parent.parent.reserved:
+                    raise Exception(f"{name} is not unique")
+                parent.parent.reserved.add(name)
+
         self.name = name
         self.class_name = kwargs.get("class_name", None)
+        self.label = kwargs.get("label", None)
+        self.appearance = kwargs.get("control", {}).get("appearance", None)
         self.config = kwargs
         self.parent = parent
+        self.reserved = set(
+            child['name'] for child in children or []
+            if not child.get('children')
+        )
         if children:
             self.children = [Node(parent=self, **child) for child in children]
         else:
@@ -109,6 +123,7 @@ class Node:
     def as_model(self, label_template=None):
         fields = []
         if self.parent:
+            assert self.config.get("wq:many")
             conf = {
                 "name": self.parent.name,
                 "bind": {"required": True},
@@ -116,13 +131,13 @@ class Node:
                 "django_type": "ForeignKey",
                 "related_name": self.config.get("verbose_name_plural"),
             }
-            if not self.config.get("wq:many"):
-                conf["django_type"] = "OneToOneField"
-                conf.pop("related_name")
-
             fields.append(Node(**conf).as_field())
 
-        fields += [child.as_field() for child in self.children]
+        for child in self.children:
+            if child.children and not child.config.get('wq:many'):
+                fields += child.as_fields()
+            else:
+                fields.append(child.as_field())
 
         if label_template:
             str_def = [
@@ -145,7 +160,7 @@ class Node:
 
         nested_models = []
         for field in self.children:
-            if field.children:
+            if field.children and field.config.get('wq:many'):
                 nested_models.append(field.as_model())
 
         return [
@@ -224,6 +239,18 @@ class Node:
             ast_call(f"models.{django_type}", comma=True, *args, **kwargs),
         )
 
+    def as_fields(self):
+        assert self.children and not self.config.get('wq:many')
+        return [
+            ast_newline(),
+            ast_newline(),
+            ast_comment(self.config.get('label') or self.name),
+        ] + [
+            child.as_field() for child in self.children
+        ] + [
+            ast_newline(),
+        ]
+
     def as_rest(self):
         kwargs = {}
 
@@ -235,6 +262,8 @@ class Node:
 
         kwargs.update(
             fields="__all__",
+            cache="first_page",
+            background_sync=True,
         )
 
         if self.config.get("has_geo"):
@@ -334,18 +363,55 @@ class Node:
     def as_serializer(self):
         nested_serializers = []
         nested_fields = []
+        wq_field_config = {}
+        wq_fieldsets = {}
+        root_fields = []
         for field in self.children:
             if field.children:
-                nested_serializers += field.as_serializer()
-                nested_fields.append(
-                    ast_assign(
-                        field.name,
-                        ast_call(
-                            f"{field.class_name}Serializer",
-                            many=True,
-                        ),
+                if field.config.get('wq:many'):
+                    nested_serializers += field.as_serializer()
+                    nested_fields.append(
+                        ast_assign(
+                            field.name,
+                            ast_call(
+                                f"{field.class_name}Serializer",
+                                many=True,
+                            ),
+                        )
                     )
-                )
+                else:
+                    fieldset = {
+                        'label': field.config.get('label'),
+                    }
+                    if field.appearance:
+                        fieldset['control'] = {'appearance': field.appearance}
+                    fieldset['fields'] = [
+                        child.name for child in field.children
+                    ]
+                    for child in field.children:
+                        if child.appearance:
+                            wq_field_config[
+                                child.name
+                            ] = child.as_wq_field_config()
+                    wq_fieldsets[field.name] = fieldset
+            else:
+                root_fields.append(field.name)
+                if field.appearance:
+                    wq_field_config[
+                        field.name
+                    ] = field.as_wq_field_config()
+
+        if wq_fieldsets:
+            wq_fieldsets = {
+                '': {
+                    'label': 'General',
+                    'fields': root_fields,
+                },
+                **wq_fieldsets
+            }
+        else:
+            wq_fieldsets = None
+
         return [
             *nested_serializers,
             ast_class(
@@ -365,6 +431,8 @@ class Node:
                     ast_assign("wq_config", ast_dict(initial=3))
                     if self.config.get("wq:many")
                     else None,
+                    ast_assign("wq_field_config", wq_field_config),
+                    ast_assign("wq_fieldsets", wq_fieldsets),
                 )
                 if self.parent
                 else ast_class(
@@ -372,9 +440,18 @@ class Node:
                     [],
                     ast_assign("model", ast_name(self.class_name)),
                     ast_assign("fields", "__all__"),
+                    ast_assign("wq_field_config", wq_field_config),
+                    ast_assign("wq_fieldsets", wq_fieldsets),
                 ),
             ),
         ]
+
+    def as_wq_field_config(self):
+        return {
+            'control': {
+                'appearance': self.appearance,
+            }
+        }
 
 
 def django_context(xform_json):

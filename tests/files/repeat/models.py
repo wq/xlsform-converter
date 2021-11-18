@@ -6,6 +6,14 @@ class Repeat(models.Model):
         verbose_name="Name",
     )
 
+    # Nested
+    nested_name = models.TextField(
+        verbose_name="Name",
+    )
+    count = models.IntegerField(
+        verbose_name="Count",
+    )
+
     class Meta:
         verbose_name = "repeat"
         verbose_name_plural = "repeats"
@@ -27,17 +35,3 @@ class Item(models.Model):
     class Meta:
         verbose_name = "item"
         verbose_name_plural = "items"
-
-
-class Nested(models.Model):
-    repeat = models.OneToOneField(
-        Repeat,
-        on_delete=models.CASCADE,
-    )
-    name = models.TextField(
-        verbose_name="Name",
-    )
-
-    class Meta:
-        verbose_name = "nested"
-        verbose_name_plural = "nesteds"

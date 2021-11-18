@@ -10,19 +10,17 @@ class ItemSerializer(patterns.AttachmentSerializer):
         wq_config = {
             "initial": 3,
         }
-
-
-class NestedSerializer(patterns.AttachmentSerializer):
-    class Meta(patterns.AttachmentSerializer.Meta):
-        model = Nested
-        exclude = ("nestedfk",)
-        object_field = "nestedfk"
+        wq_field_config = {}
 
 
 class NestedfkSerializer(patterns.AttachedModelSerializer):
     items = ItemSerializer(many=True)
-    nested = NestedSerializer(many=True)
 
     class Meta:
         model = Nestedfk
         fields = "__all__"
+        wq_field_config = {}
+        wq_fieldsets = {
+            "": {"label": "General", "fields": ["name"]},
+            "nested": {"label": "Nested", "fields": ["group"]},
+        }

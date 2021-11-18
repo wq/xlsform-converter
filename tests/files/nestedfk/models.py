@@ -6,6 +6,13 @@ class Nestedfk(models.Model):
         verbose_name="Name",
     )
 
+    # Nested
+    group = models.ForeignKey(
+        "otherapp.Group",
+        on_delete=models.CASCADE,
+        verbose_name="Group",
+    )
+
     class Meta:
         verbose_name = "nestedfk"
         verbose_name_plural = "nestedfks"
@@ -33,19 +40,3 @@ class Item(models.Model):
     class Meta:
         verbose_name = "item"
         verbose_name_plural = "items"
-
-
-class Nested(models.Model):
-    nestedfk = models.OneToOneField(
-        Nestedfk,
-        on_delete=models.CASCADE,
-    )
-    group = models.ForeignKey(
-        "otherapp.Group",
-        on_delete=models.CASCADE,
-        verbose_name="Group",
-    )
-
-    class Meta:
-        verbose_name = "nested"
-        verbose_name_plural = "nesteds"

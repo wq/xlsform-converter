@@ -1,10 +1,11 @@
 survey,,,
-,type,name,label,constraint,required
+,type,name,label,constraint,required,appearance
 ,text,name,Name,,yes,
-,begin repeat,items,Items,wq:initial(3),yes
+,begin repeat,items,Items,wq:initial(3),yes,
 ,text,name,Item Name,,yes,
-,integer,count,Item Count,,yes,
+,integer,count,Item Count,,yes,counter
 ,end repeat,,,,,
-,begin group,nested,Nested,,yes
-,text,name,Name,,yes
-,end group,,,,
+,begin group,nested,Nested,,yes,horizontal-view
+,text,name,Name,,yes,
+,integer,count,Count,,yes,counter
+,end group,,,,,

@@ -71,6 +71,11 @@
               <textarea id='repeat-nested-name' name='nested[name]' data-xform-type="text" required>{{name}}</textarea>
               <p class='error repeat-nested-name-errors'></p>
             </li>
+            <li class="ui-field-contain">
+              <label for='repeat-nested-count'>Count</label>
+              <input id='repeat-nested-count' type='number' data-xform-type='integer' name='nested[count]' required value="{{count}}">
+              <p class='error repeat-nested-count-errors'></p>
+            </li>
             <li class="section-nested"></li>
             {{/nested}}
             <li>

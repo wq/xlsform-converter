@@ -10,19 +10,21 @@ class ItemSerializer(patterns.AttachmentSerializer):
         wq_config = {
             "initial": 3,
         }
-
-
-class NestedSerializer(patterns.AttachmentSerializer):
-    class Meta(patterns.AttachmentSerializer.Meta):
-        model = Nested
-        exclude = ("repeat",)
-        object_field = "repeat"
+        wq_field_config = {"count": {"control": {"appearance": "counter"}}}
 
 
 class RepeatSerializer(patterns.AttachedModelSerializer):
     items = ItemSerializer(many=True)
-    nested = NestedSerializer(many=True)
 
     class Meta:
         model = Repeat
         fields = "__all__"
+        wq_field_config = {"count": {"control": {"appearance": "counter"}}}
+        wq_fieldsets = {
+            "": {"label": "General", "fields": ["name"]},
+            "nested": {
+                "label": "Nested",
+                "control": {"appearance": "horizontal-view"},
+                "fields": ["nested_name", "count"],
+            },
+        }

@@ -7,4 +7,6 @@ rest.router.register_model(
     Repeat,
     serializer=RepeatSerializer,
     fields="__all__",
+    cache="first_page",
+    background_sync=True,
 )

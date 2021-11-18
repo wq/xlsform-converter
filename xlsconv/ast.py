@@ -48,6 +48,8 @@ def ast_call(fname, *args, comma=None, **kwargs):
 
 
 def ast_assign(name, val):
+    if val is None:
+        return None
     return ast.Assign(
         targets=[ast_name(name)],
         value=ast_val(val),
@@ -117,6 +119,10 @@ def ast_trailing_comma():
 
 def ast_newline():
     return ast.Expr(ast.Name(id=""))
+
+
+def ast_comment(comment):
+    return ast.Name(id='# ' + comment)
 
 
 def ast_list(args):
