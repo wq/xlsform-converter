@@ -9,3 +9,7 @@ survey,,,
 ,text,name,Name,,yes,
 ,integer,count,Count,,yes,counter
 ,end group,,,,,
+,begin repeat,data,Data,wq:initial(3),yes,
+,text,name,Datum Name,,yes,
+,integer,value,Datum Value,,yes,counter
+,end repeat,,,,,

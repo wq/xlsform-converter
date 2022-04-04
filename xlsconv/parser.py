@@ -50,12 +50,13 @@ def parse_xls(file_or_name):
 
 def generate_names(field_name, from_plural=False):
     class_name = field_name.replace("_", " ").title().replace(" ", "")
-    if from_plural and class_name.endswith("s"):
-        class_name = class_name[:-1]
-
     plural_name = class_name.lower()
-    if not plural_name.endswith("s"):
-        plural_name += "s"
+    if from_plural:
+        if class_name.endswith("s"):
+            class_name = class_name[:-1]
+    else:
+        if not plural_name.endswith("s"):
+            plural_name += "s"
 
     return class_name, plural_name
 

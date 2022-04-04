@@ -35,3 +35,21 @@ class Item(models.Model):
     class Meta:
         verbose_name = "item"
         verbose_name_plural = "items"
+
+
+class Data(models.Model):
+    repeat = models.ForeignKey(
+        Repeat,
+        on_delete=models.CASCADE,
+        related_name="data",
+    )
+    name = models.TextField(
+        verbose_name="Datum Name",
+    )
+    value = models.IntegerField(
+        verbose_name="Datum Value",
+    )
+
+    class Meta:
+        verbose_name = "data"
+        verbose_name_plural = "data"
