@@ -5,6 +5,8 @@ GROUP_TYPES = ["group", "repeat"]
 
 WQ_EXTENSIONS = ["ForeignKey", "length", "initial"]
 
+IGNORE_FIELDS = ["meta", "__version__"]
+
 
 def parse_xls(file_or_name):
     if isinstance(file_or_name, str):
@@ -17,11 +19,10 @@ def parse_xls(file_or_name):
         filename, file_object=fileobj, default_name=get_filename(filename)
     )
 
-    # Remove 'meta' field from form
     xform_json["children"] = [
         field
         for field in xform_json["children"]
-        if field["type"] != "group" or field["name"] != "meta"
+        if field["name"] not in IGNORE_FIELDS
     ]
 
     def process_fields(root):
