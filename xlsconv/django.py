@@ -284,11 +284,13 @@ class Node:
                                 "layers": [],
                             }
                         ),
-                    ]
-                    + [
-                        field.map_config()
-                        for field in self.children
-                        if field.config.get("type_is_geo")
+                        ast_dict(
+                            {
+                                "mode": "edit",
+                                "autoLayers": True,
+                                "layers": [],
+                            }
+                        ),
                     ]
                 )
             )
@@ -326,31 +328,6 @@ class Node:
                 ast_call("data_wizard.register", *args)
             ),
         )
-
-    def map_config(self):
-        return {
-            "mode": "edit",
-            "layers": [
-                {
-                    "type": "geojson",
-                    "name": self.name,
-                    "url": self.root.config["urlpath"] + "/{{id}}/edit.geojson",
-                    "draw": {
-                        "circle": False,
-                        "marker": {} if self.config.get("type_is_geopoint") else False,
-                        "polyline": {}
-                        if self.config.get("type_is_geotrace")
-                        else False,
-                        "polygon": {} if self.config.get("type_is_geoshape") else False,
-                        "rectangle": {}
-                        if self.config.get("type_is_geoshape")
-                        else False,
-                    },
-                    "geometryField": self.name,
-                    "flatten": True,
-                }
-            ],
-        }
 
     def as_serializers(self):
         serializers = self.as_serializer()
