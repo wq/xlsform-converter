@@ -72,7 +72,9 @@ def html_context(xform_json):
                     field["plural_name"] = plural_name
                 else:
                     field["plural_name"] = field["name"]
-                process_fields(field["children"], field["plural_name"], many=many)
+                process_fields(
+                    field["children"], field["plural_name"], many=many
+                )
                 continue
             if "type_info" not in field:
                 continue

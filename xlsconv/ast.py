@@ -29,7 +29,9 @@ def ast_import(module, name=None, alias=None):
             level=0,
         )
     else:
-        return ast.Import(names=[ast.alias(name=module, asname=alias)], level=0)
+        return ast.Import(
+            names=[ast.alias(name=module, asname=alias)], level=0
+        )
 
 
 def ast_expr(val):
@@ -122,7 +124,7 @@ def ast_newline():
 
 
 def ast_comment(comment):
-    return ast.Name(id='# ' + comment)
+    return ast.Name(id="# " + comment)
 
 
 def ast_list(args):

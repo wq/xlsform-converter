@@ -7,12 +7,9 @@ from .ast import (
     ast_expr,
     ast_call,
     ast_name,
-    ast_args,
-    ast_keywords,
     ast_class,
     ast_def,
     ast_return,
-    ast_trailing_comma,
     ast_newline,
     ast_comment,
     ast_dict,
@@ -56,9 +53,9 @@ IMAGE_SUBTYPES = ("image", "photo", "picture")
 
 class Node:
     def __init__(self, name, parent=None, children=None, **kwargs):
-        if parent and parent.parent and not parent.config.get('wq:many'):
+        if parent and parent.parent and not parent.config.get("wq:many"):
             if name in parent.parent.reserved:
-                name = f'{parent.name}_{name}'
+                name = f"{parent.name}_{name}"
                 if name in parent.parent.reserved:
                     raise Exception(f"{name} is not unique")
                 parent.parent.reserved.add(name)
@@ -70,8 +67,9 @@ class Node:
         self.config = kwargs
         self.parent = parent
         self.reserved = set(
-            child['name'] for child in children or []
-            if not child.get('children')
+            child["name"]
+            for child in children or []
+            if not child.get("children")
         )
         if children:
             self.children = [Node(parent=self, **child) for child in children]
@@ -134,7 +132,7 @@ class Node:
             fields.append(Node(**conf).as_field())
 
         for child in self.children:
-            if child.children and not child.config.get('wq:many'):
+            if child.children and not child.config.get("wq:many"):
                 fields += child.as_fields()
             else:
                 fields.append(child.as_field())
@@ -160,7 +158,7 @@ class Node:
 
         nested_models = []
         for field in self.children:
-            if field.children and field.config.get('wq:many'):
+            if field.children and field.config.get("wq:many"):
                 nested_models.append(field.as_model())
 
         return [
@@ -240,16 +238,18 @@ class Node:
         )
 
     def as_fields(self):
-        assert self.children and not self.config.get('wq:many')
-        return [
-            ast_newline(),
-            ast_newline(),
-            ast_comment(self.config.get('label') or self.name),
-        ] + [
-            child.as_field() for child in self.children
-        ] + [
-            ast_newline(),
-        ]
+        assert self.children and not self.config.get("wq:many")
+        return (
+            [
+                ast_newline(),
+                ast_newline(),
+                ast_comment(self.config.get("label") or self.name),
+            ]
+            + [child.as_field() for child in self.children]
+            + [
+                ast_newline(),
+            ]
+        )
 
     def as_rest(self):
         kwargs = {}
@@ -324,9 +324,7 @@ class Node:
             ast_import(".serializers", serializer) if serializer else None,
             ast_newline(),
             ast_newline(),
-            ast_expr(
-                ast_call("data_wizard.register", *args)
-            ),
+            ast_expr(ast_call("data_wizard.register", *args)),
         )
 
     def as_serializers(self):
@@ -345,7 +343,7 @@ class Node:
         root_fields = []
         for field in self.children:
             if field.children:
-                if field.config.get('wq:many'):
+                if field.config.get("wq:many"):
                     nested_serializers += field.as_serializer()
                     nested_fields.append(
                         ast_assign(
@@ -358,11 +356,11 @@ class Node:
                     )
                 else:
                     fieldset = {
-                        'label': field.config.get('label'),
+                        "label": field.config.get("label"),
                     }
                     if field.appearance:
-                        fieldset['control'] = {'appearance': field.appearance}
-                    fieldset['fields'] = [
+                        fieldset["control"] = {"appearance": field.appearance}
+                    fieldset["fields"] = [
                         child.name for child in field.children
                     ]
                     for child in field.children:
@@ -374,17 +372,15 @@ class Node:
             else:
                 root_fields.append(field.name)
                 if field.appearance:
-                    wq_field_config[
-                        field.name
-                    ] = field.as_wq_field_config()
+                    wq_field_config[field.name] = field.as_wq_field_config()
 
         if wq_fieldsets:
             wq_fieldsets = {
-                '': {
-                    'label': 'General',
-                    'fields': root_fields,
+                "": {
+                    "label": "General",
+                    "fields": root_fields,
                 },
-                **wq_fieldsets
+                **wq_fieldsets,
             }
         else:
             wq_fieldsets = None
@@ -425,8 +421,8 @@ class Node:
 
     def as_wq_field_config(self):
         return {
-            'control': {
-                'appearance': self.appearance,
+            "control": {
+                "appearance": self.appearance,
             }
         }
 
