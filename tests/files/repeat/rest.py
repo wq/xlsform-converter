@@ -3,7 +3,7 @@ from .models import Repeat
 from .serializers import RepeatSerializer
 
 
-rest.router.register_model(
+rest.router.register(
     Repeat,
     serializer=RepeatSerializer,
     fields="__all__",

@@ -2,7 +2,7 @@ from wq.db import rest
 from .models import InputTypes
 
 
-rest.router.register_model(
+rest.router.register(
     InputTypes,
     fields="__all__",
     cache="first_page",

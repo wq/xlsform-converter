@@ -3,7 +3,7 @@ from .models import Nestedfk
 from .serializers import NestedfkSerializer
 
 
-rest.router.register_model(
+rest.router.register(
     Nestedfk,
     serializer=NestedfkSerializer,
     fields="__all__",

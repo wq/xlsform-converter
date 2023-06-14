@@ -302,7 +302,7 @@ class Node:
             ast_newline(),
             ast_expr(
                 ast_call(
-                    "rest.router.register_model",
+                    "rest.router.register",
                     ast_name(self.class_name),
                     **kwargs,
                 )
@@ -329,7 +329,7 @@ class Node:
     def as_serializers(self):
         serializers = self.as_serializer()
         return ast_module(
-            ast_import("wq.db.patterns", "serializers", "patterns"),
+            ast_import("wq.db", "rest"),
             ast_import(".models", self.models),
             *serializers,
         )
@@ -350,6 +350,7 @@ class Node:
                             ast_call(
                                 f"{field.class_name}Serializer",
                                 many=True,
+                                wq_config=ast_dict(initial=3),
                             ),
                         )
                     )
@@ -388,21 +389,13 @@ class Node:
             *nested_serializers,
             ast_class(
                 f"{self.class_name}Serializer",
-                [
-                    "patterns.AttachmentSerializer"
-                    if self.parent
-                    else "patterns.AttachedModelSerializer"
-                ],
+                ["rest.ModelSerializer"],
                 *nested_fields,
                 ast_class(
                     "Meta",
-                    ["patterns.AttachmentSerializer.Meta"],
+                    [],
                     ast_assign("model", ast_name(self.class_name)),
                     ast_assign("exclude", (self.parent.name,)),
-                    ast_assign("object_field", self.parent.name),
-                    ast_assign("wq_config", ast_dict(initial=3))
-                    if self.config.get("wq:many")
-                    else None,
                     ast_assign("wq_field_config", wq_field_config),
                     ast_assign("wq_fieldsets", wq_fieldsets),
                 )

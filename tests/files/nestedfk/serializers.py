@@ -1,20 +1,21 @@
-from wq.db.patterns import serializers as patterns
+from wq.db import rest
 from .models import Nestedfk, Item, Nested
 
 
-class ItemSerializer(patterns.AttachmentSerializer):
-    class Meta(patterns.AttachmentSerializer.Meta):
+class ItemSerializer(rest.ModelSerializer):
+    class Meta:
         model = Item
         exclude = ("nestedfk",)
-        object_field = "nestedfk"
-        wq_config = {
-            "initial": 3,
-        }
         wq_field_config = {}
 
 
-class NestedfkSerializer(patterns.AttachedModelSerializer):
-    items = ItemSerializer(many=True)
+class NestedfkSerializer(rest.ModelSerializer):
+    items = ItemSerializer(
+        many=True,
+        wq_config={
+            "initial": 3,
+        },
+    )
 
     class Meta:
         model = Nestedfk

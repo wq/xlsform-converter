@@ -1,8 +1,8 @@
-from wq.db.patterns import serializers as patterns
+from wq.db import rest
 from .models import InputTypes
 
 
-class InputTypesSerializer(patterns.AttachedModelSerializer):
+class InputTypesSerializer(rest.ModelSerializer):
     class Meta:
         model = InputTypes
         fields = "__all__"

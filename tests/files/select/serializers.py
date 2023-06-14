@@ -1,8 +1,8 @@
-from wq.db.patterns import serializers as patterns
+from wq.db import rest
 from .models import Select
 
 
-class SelectSerializer(patterns.AttachedModelSerializer):
+class SelectSerializer(rest.ModelSerializer):
     class Meta:
         model = Select
         fields = "__all__"

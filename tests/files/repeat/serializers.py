@@ -1,32 +1,34 @@
-from wq.db.patterns import serializers as patterns
+from wq.db import rest
 from .models import Repeat, Item, Nested, Data
 
 
-class ItemSerializer(patterns.AttachmentSerializer):
-    class Meta(patterns.AttachmentSerializer.Meta):
+class ItemSerializer(rest.ModelSerializer):
+    class Meta:
         model = Item
         exclude = ("repeat",)
-        object_field = "repeat"
-        wq_config = {
-            "initial": 3,
-        }
         wq_field_config = {"count": {"control": {"appearance": "counter"}}}
 
 
-class DataSerializer(patterns.AttachmentSerializer):
-    class Meta(patterns.AttachmentSerializer.Meta):
+class DataSerializer(rest.ModelSerializer):
+    class Meta:
         model = Data
         exclude = ("repeat",)
-        object_field = "repeat"
-        wq_config = {
-            "initial": 3,
-        }
         wq_field_config = {"value": {"control": {"appearance": "counter"}}}
 
 
-class RepeatSerializer(patterns.AttachedModelSerializer):
-    items = ItemSerializer(many=True)
-    data = DataSerializer(many=True)
+class RepeatSerializer(rest.ModelSerializer):
+    items = ItemSerializer(
+        many=True,
+        wq_config={
+            "initial": 3,
+        },
+    )
+    data = DataSerializer(
+        many=True,
+        wq_config={
+            "initial": 3,
+        },
+    )
 
     class Meta:
         model = Repeat
