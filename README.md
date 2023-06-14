@@ -35,14 +35,6 @@ xlsform-converter uses ASTs and templates to generate the following Django/wq pr
    - [`rest.py`](https://github.com/wq/xlsform-converter/blob/main/tests/files/input_types/rest.py) (for use with [`wq.db.rest`](https://wq.io/wq.db/rest))
    - [`serializers.py`](https://github.com/wq/xlsform-converter/blob/main/files/input_types/serializers.py) (for use with `wq.db.rest`)
 
-#### Mustache Templates (deprecated)
-   - [`edit.html`](https://github.com/wq/xlsform-converter/blob/main/xlsconv/templates/edit.html)
-   - [`detail.html`](https://github.com/wq/xlsform-converter/blob/main/xlsconv/templates/detail.html)
-   - [`list.html`](https://github.com/wq/xlsform-converter/blob/main/xlsconv/templates/list.html)
-   - [`popup.html`](https://github.com/wq/xlsform-converter/blob/main/xlsconv/templates/popup.html) (for use with [@wq/map](https://wq.io/@wq/map))
-
-> Note that these Mustache templates are only designed for use with wq's jQuery Mobile renderer, used by default in 1.2 and earlier.  As of [wq 1.3](https://wq.io/releases/wq-1.3.0), the corresponding screens are generated at runtime via [@wq/react](https://wq.io/@wq/react)'s built in React [views](https://wq.io/views/).  These Mustache templates will be dropped in 2.0, together with all backwards combility with 1.2.
-
 ### Usage
 
 If you are using wq, you may be interested in [wq.create], which uses xlsconv internally for the `wq addform` command.  Otherwise, you can use xlsconv directly with the following command-line API:

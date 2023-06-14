@@ -36,7 +36,6 @@ setup(
         "pyxform",
         "astunparse",
         "black",
-        "pystache",
     ],
     setup_requires=[
         "setuptools_scm",

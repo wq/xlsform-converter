@@ -1,5 +1,4 @@
 from .parser import parse_xls, generate_names
-from .renderer import render
 from .ast import (
     ast_module,
     ast_import,
@@ -517,12 +516,11 @@ def xls2django(file_or_name, template_name=DEFAULT_TEMPLATE):
     context = django_context(xform_json)
     transform = TEMPLATES.get(template_name)
 
-    if transform:
-        tree = transform(Node(**context["form"]))
-        code = unparse(tree)
-    else:
-        code = render(context, template_name)
+    if not transform:
+        raise Exception(f"Unrecognized type {template_name}")
 
+    tree = transform(Node(**context["form"]))
+    code = unparse(tree)
     return black.format_str(code, mode=black.FileMode())
 
 
