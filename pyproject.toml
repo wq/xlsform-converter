@@ -1,0 +1,46 @@
+[build-system]
+requires = ["setuptools", "setuptools-scm"]
+
+[project]
+name = "xlsconv"
+dynamic = ["version"]
+authors = [
+    {name = "S. Andrew Sheppard", email = "andrew@wq.io"},
+]
+description = "Tool to convert ODK-style XLSForms into Django models or use with wq (https://wq.io/)"
+readme = "README.md"
+requires-python = ">=3.7"
+license = {text = "MIT"}
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Environment :: Web Environment",
+    "License :: OSI Approved :: MIT License",
+    "Natural Language :: English",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Topic :: Software Development :: Code Generators",
+    "Framework :: Django",
+    "Topic :: Text Processing :: Markup :: HTML",
+]
+dependencies = [
+    "pyxform",
+    "astunparse",
+    "black",
+]
+
+[project.scripts]
+xls2django = "xlsconv.django:main"
+
+[project.urls]
+Homepage = "https://github.com/wq/xlsform-converter"
+Documentation = "https://wq.io/"
+Source = "https://github.com/wq/xlsform-converter"
+"Release Notes" = "https://github.com/wq/xlsform-converter/releases"
+Issues = "https://github.com/wq/xlsform-converter/issues"
+CI = "https://github.com/wq/xlsform-converter/actions/workflows/test.yml"
+
+[tool.setuptools_scm]
