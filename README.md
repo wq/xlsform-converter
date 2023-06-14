@@ -30,10 +30,10 @@ xlsform-converter uses ASTs and templates to generate the following Django/wq pr
 
 #### Django Apps
    - [`models.py`](https://github.com/wq/xlsform-converter/blob/main/tests/files/input_types/models.py)
-   - [`admin.py`](https://github.com/wq/xlsform-converter/blob/main/tests/files/input_types/admin.py) (for use with [`django.contrib.admin`](https://docs.djangoproject.com/en/4.0/ref/contrib/admin/))
+   - [`admin.py`](https://github.com/wq/xlsform-converter/blob/main/tests/files/input_types/admin.py) (for use with [`django.contrib.admin`](https://docs.djangoproject.com/en/4.2/ref/contrib/admin/))
    - [`wizard.py`](https://github.com/wq/xlsform-converter/blob/main/tests/files/input_types/wizard.py) (for use with [Django Data Wizard](https://github.com/wq/django-data-wizard))
    - [`rest.py`](https://github.com/wq/xlsform-converter/blob/main/tests/files/input_types/rest.py) (for use with [`wq.db.rest`](https://wq.io/wq.db/rest))
-   - [`serializers.py`](https://github.com/wq/xlsform-converter/blob/main/files/input_types/serializers.py) (for use with `wq.db.rest`)
+   - [`serializers.py`](https://github.com/wq/xlsform-converter/blob/main/tests/files/input_types/serializers.py) (for use with `wq.db.rest`)
 
 ### Usage
 
@@ -55,8 +55,7 @@ xls2django my-odk-survey.xls rest > myapp/models.py
 ```
 
 [XLSForm standard]: https://xlsform.org/
-[Django models]: https://docs.djangoproject.com/en/1.9/topics/db/models/
-[Mustache templates]: https://wq.io/docs/templates
+[Django models]: https://docs.djangoproject.com/en/4.2/topics/db/models/
 [ecosystem]: https://getodk.org/about/ecosystem.html
 [KoboToolbox]: https://www.kobotoolbox.org/
 [PostgreSQL]: http://www.postgresql.org/
