@@ -1,5 +1,5 @@
 from wq.db import rest
-from .models import Nestedfk, Item, Nested
+from .models import Nestedfk, Item
 
 
 class ItemSerializer(rest.ModelSerializer):

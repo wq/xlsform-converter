@@ -86,7 +86,7 @@ class Node:
     def models(self):
         models = [self.class_name]
         for field in self.children:
-            if field.children:
+            if field.children and field.config.get("wq:many"):
                 models += field.models
         return models
 

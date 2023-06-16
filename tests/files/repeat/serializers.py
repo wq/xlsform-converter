@@ -1,5 +1,5 @@
 from wq.db import rest
-from .models import Repeat, Item, Nested, Data
+from .models import Repeat, Item, Data
 
 
 class ItemSerializer(rest.ModelSerializer):
