@@ -41,6 +41,6 @@ Documentation = "https://wq.io/"
 Source = "https://github.com/wq/xlsform-converter"
 "Release Notes" = "https://github.com/wq/xlsform-converter/releases"
 Issues = "https://github.com/wq/xlsform-converter/issues"
-CI = "https://github.com/wq/xlsform-converter/actions/workflows/test.yml"
+Tests = "https://github.com/wq/xlsform-converter/actions/workflows/test.yml"
 
 [tool.setuptools_scm]
