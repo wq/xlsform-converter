@@ -3,6 +3,7 @@ from .models import Repeat, Item, Data
 
 
 class ItemSerializer(rest.ModelSerializer):
+
     class Meta:
         model = Item
         exclude = ("repeat",)
@@ -10,6 +11,7 @@ class ItemSerializer(rest.ModelSerializer):
 
 
 class DataSerializer(rest.ModelSerializer):
+
     class Meta:
         model = Data
         exclude = ("repeat",)

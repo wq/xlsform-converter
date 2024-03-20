@@ -3,6 +3,7 @@ from .models import Nestedfk, Item
 
 
 class ItemSerializer(rest.ModelSerializer):
+
     class Meta:
         model = Item
         exclude = ("nestedfk",)

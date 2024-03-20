@@ -3,6 +3,7 @@ from .models import Select
 
 
 class SelectSerializer(rest.ModelSerializer):
+
     class Meta:
         model = Select
         fields = "__all__"
