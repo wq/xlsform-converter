@@ -9,7 +9,7 @@ authors = [
 ]
 description = "Tool to convert ODK-style XLSForms into Django models or use with wq (https://wq.io/)"
 readme = "README.md"
-requires-python = ">=3.7"
+requires-python = ">=3.8"
 license = {text = "MIT"}
 classifiers = [
     "Development Status :: 5 - Production/Stable",
@@ -17,11 +17,11 @@ classifiers = [
     "License :: OSI Approved :: MIT License",
     "Natural Language :: English",
     "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.7",
     "Programming Language :: Python :: 3.8",
     "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
     "Topic :: Software Development :: Code Generators",
     "Framework :: Django",
     "Topic :: Text Processing :: Markup :: HTML",
