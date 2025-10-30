@@ -1,4 +1,5 @@
-from pyxform.xls2json import parse_file_to_json, get_filename
+import os
+from pyxform.xls2json import parse_file_to_json
 from pyxform.question_type_dictionary import QUESTION_TYPE_DICT as QTYPES
 
 GROUP_TYPES = ["group", "repeat"]
@@ -16,7 +17,9 @@ def parse_xls(file_or_name):
         fileobj = file_or_name
         filename = fileobj.name
     xform_json = parse_file_to_json(
-        filename, file_object=fileobj, default_name=get_filename(filename)
+        filename,
+        file_object=fileobj,
+        default_name=os.path.splitext(os.path.basename(file_or_name))[0],
     )
 
     xform_json["children"] = [
